@@ -51,16 +51,24 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 Widget _movieWidget(context, title) {
+  TextEditingController textEditingController;
   return Card(
-      margin: const EdgeInsets.all(1.0),
       child: Container(
+          child: TextField(
+            controller: textEditingController,
+            decoration: InputDecoration(
+              labelText: 'search for movies',
+              labelStyle:
+                  TextStyle(color: Colors.black87, fontWeight: FontWeight.w300),
+            ),
+          ),
           decoration: BoxDecoration(
-        color: AppColors.secondaryColor,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(15),
-          topLeft: Radius.circular(15),
-          topRight: Radius.circular(15),
-          bottomRight: Radius.circular(15),
-        ),
-      )));
+            color: AppColors.secondaryColor,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(10),
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
+          )));
 }

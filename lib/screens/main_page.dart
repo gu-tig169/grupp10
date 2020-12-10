@@ -16,14 +16,25 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: AppColors.primaryColor,
-          title: Text('The Movies App', textAlign: TextAlign.center)),
+          title: Text('The Movies App', textAlign: TextAlign.center),
+          actions: <Widget>[
+            PopupMenuButton<int>(
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: 1,
+                  child: Text('Första'),
+                ),
+                PopupMenuItem(value: 2, child: Text('Andra'))
+              ],
+            )
+          ]),
       body: Center(
         child: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
-                  colors: [AppColors.primaryColor, AppColors.secondaryColor])),
+                  color: [AppColors.primaryColor, AppColors.secondaryColor])),
         ),
       ),
     );

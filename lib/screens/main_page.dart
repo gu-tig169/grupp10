@@ -15,64 +15,58 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.secondaryColor,
-          title: Text('The Movies App', textAlign: TextAlign.center),
-          actions: <Widget>[
-            PopupMenuButton<int>(
-              icon: Icon(Icons.more_vert_rounded, color: Colors.white),
-              itemBuilder: (context) => [
-                PopupMenuItem(value: 1,  child: Text('Första'),),
-                PopupMenuItem(value: 2, child: Text('Andra'))
-              ],
-              onSelected: (value) => print("value:$value"),
-            )
-          ],
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient( // Flyttade lineargradient hit.
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [AppColors.primaryColor, AppColors.secondaryColor],
         ),
-        body: _movieWidget(context, String));
-    // Tror vi kan ta bort grejerna under här.
-    /*Center(
-        child: Container( 
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            color: [AppColors.primaryColor, AppColors.secondaryColor],
-          )),
-            ),
       ),
-    );*/
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            title: Text('The Movies App', textAlign: TextAlign.center),
+            actions: <Widget>[
+              PopupMenuButton<int>(
+                icon: Icon(Icons.more_vert_rounded, color: Colors.white),
+                itemBuilder: (context) => [
+                  PopupMenuItem(value: 1,  child: Text('Första'),),
+                  PopupMenuItem(value: 2, child: Text('Andra'))
+                ],
+                onSelected: (value) => print("value:$value"),
+              )
+            ],
+          ),
+          body: _movieWidget(context, String)),
+    );
   }
 }
 
 Widget _movieWidget(context, title) {
-  return Card(
-      child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient( // Flyttade lineargradient hit.
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [AppColors.primaryColor, AppColors.secondaryColor],
-            ),
-            color: AppColors.secondaryColor,
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(10),
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomRight: Radius.circular(10),
+  return Container(
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+      ),
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: <Widget> [
+          _searchBar(),
+          Padding(
+            padding: EdgeInsets.fromLTRB(8, 32, 8, 8),
+            child: Container(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                  child: Text("Trending", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w900))
+              )
             ),
           ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget> [
-              _searchBar(),
-              _movieList(),
-            ]
-          )
-        )
+          _movieList(),
+        ]
       )
+    )
   );
 }
 
@@ -81,12 +75,12 @@ Widget _searchBar() {
   TextEditingController textEditingController;
   return Row(
       children: <Widget> [
-        Expanded(
+        Flexible(
           child: TextField(
             controller: textEditingController,
             decoration: InputDecoration(
               labelText: 'Search for movies',
-              labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
+              labelStyle: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300),
             ),
           ),
         ),
@@ -100,23 +94,38 @@ Widget _searchBar() {
   );
 }
 
-// Listan med filmerna.
+// Listan med filmerna. Hårdkodad!
 Widget _movieList(){
   return Expanded(
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView.builder(
-        itemCount: 6, // Visar 6 st filmer nu.
+        itemCount: 9, // Visar 9 st filmer nu.
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: <Widget> [
-                // Här är filmerna.
-                Text("Avengers: Endgame", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400)),
-                Text("120 min", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400)),
-                Text("Rating: 4.5 stars", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400))
-              ]
+            child: SingleChildScrollView( // Man kan scrolla mha touchskärmen.
+              child: Column(
+                children: <Widget> [
+                  // Här är filmerna.
+                  Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Text("INSERT IMAGE"), // Vet inte hur man gör detta riktigt!
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Text("Avengers: Endgame", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Text("120 min", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Text("Rating: 4.5 stars", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                  )
+                ]
+              ),
             )
           );
         }

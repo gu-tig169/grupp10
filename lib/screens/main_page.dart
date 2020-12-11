@@ -17,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient( // Flyttade lineargradient hit.
+        gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
           colors: [AppColors.primaryColor, AppColors.secondaryColor],
@@ -26,6 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            elevation: 0,
             backgroundColor: Colors.transparent,
             title: Text('The Movies App', textAlign: TextAlign.center),
             actions: <Widget>[

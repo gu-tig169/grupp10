@@ -73,7 +73,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
   Widget _textBox() {
     return Container(
         padding: EdgeInsets.only(left: 20, top: 10),
-        color: AppColors.secondaryColor.withOpacity(0.3),
+        color: Color.fromARGB(225, 18, 18, 30).withOpacity(0.3),
         height: 200,
         width: 350,
         child: Column(
@@ -186,6 +186,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
 //Funktion som låter användaren ratea filmen, datan kan skickas till api och sedan visas i widgeten _starRating
   void show() {
     showDialog(
+        barrierColor: Colors.black38,
         context: context,
         barrierDismissible: true,
         builder: (context) {
@@ -195,9 +196,9 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                       headline6: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.w300)),
                   dialogBackgroundColor:
-                      AppColors.secondaryColor.withOpacity(0.7)),
+                      Color.fromARGB(225, 18, 18, 30).withOpacity(0.8)),
               child: RatingDialog(
-                icon: Image.asset('assets/images/icon.png', height: 60),
+                icon: Image.asset('assets/images/icon.png', height: 40),
                 title: 'Movie review',
                 description: 'What did you think about this movie? Tell us!',
                 submitButton: 'Sumbit',

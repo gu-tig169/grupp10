@@ -50,6 +50,9 @@ flutter:
 
   assets:
     - assets/images/logo.png
+    - assets/images/avengers.jpg
+    - assets/images/icon.png
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

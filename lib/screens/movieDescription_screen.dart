@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-class MovieDescriptionScreen extends StatelessWidget {
+class DescriptionScreen extends StatefulWidget {
+  @override
+  _DescriptionScreenState createState() => _DescriptionScreenState();
+}
+
+class _DescriptionScreenState extends State<DescriptionScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -162,7 +167,7 @@ class MovieDescriptionScreen extends StatelessWidget {
           width: 100,
           child: FloatingActionButton.extended(
               label: Text(
-                'REVIEW',
+                'RATE',
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
               ),
               backgroundColor: Color.fromARGB(225, 49, 137, 173),
@@ -173,21 +178,34 @@ class MovieDescriptionScreen extends StatelessWidget {
                   side: BorderSide(
                       color: Color.fromARGB(225, 49, 137, 173), width: 3)),
               onPressed: () {
-                _reviewDialog();
+                show();
               })),
       Container(width: 10)
     ]);
   }
 
-  Widget _reviewDialog() {
-    return RatingDialog(
-        icon: const Icon(Icons.star,
-            size: 100, color: Color.fromARGB(225, 18, 18, 30)),
-        title: 'Rate the movie',
-        description: 'Tell us what you thought about this movie',
-        onSubmitPressed: (int rating) {
-          // Användarens rating skickas till api här? vad tycker ni?
-        },
-        submitButton: 'Sumbit');
+  void show() {
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (context) {
+          return Theme(
+              data: Theme.of(context).copyWith(
+                  textTheme: TextTheme(
+                      headline6: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w300)),
+                  dialogBackgroundColor:
+                      Color.fromARGB(225, 18, 18, 30).withOpacity(0.7)),
+              child: RatingDialog(
+                icon: Image.asset('assets/images/icon.png', height: 60),
+                title: 'Movie review',
+                description: 'What did you think about this movie? Tell us!',
+                submitButton: 'Sumbit',
+                accentColor: Color.fromARGB(225, 49, 137, 173), // optional
+                onSubmitPressed: (int rating) {
+                  print("onSubmitPressed: rating = $rating");
+                },
+              ));
+        });
   }
 }

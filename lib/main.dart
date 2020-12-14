@@ -1,4 +1,3 @@
-import 'package:MoviePKR/screens/main_page.dart';
 import 'package:MoviePKR/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 

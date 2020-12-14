@@ -20,7 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
               gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
-                  color: [AppColors.primaryColor, AppColors.secondaryColor])),
+                  colors: [AppColors.primaryColor, AppColors.secondaryColor])),
         ),
       ),
     );

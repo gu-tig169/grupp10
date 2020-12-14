@@ -37,7 +37,7 @@ class SearchResult extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(children: <Widget>[
               Padding(
-                padding: EdgeInsets.fromLTRB(8, 32, 8, 8),
+                padding: EdgeInsets.all(10),
                 child: Container(
                     child: Align(
                         alignment: Alignment.centerLeft,

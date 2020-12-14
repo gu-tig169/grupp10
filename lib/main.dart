@@ -1,4 +1,3 @@
-import 'package:MoviePKR/screens/singleList_screen.dart';
 import 'package:MoviePKR/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +14,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       // home: MyHomePage(title: 'MoviePKR'),
-      // home: MainSplashScreen(),
-      home: MovieListScreen(),
+      home: MainSplashScreen(),
     );
   }
 }

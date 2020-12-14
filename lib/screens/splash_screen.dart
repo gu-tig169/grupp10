@@ -1,6 +1,6 @@
 import 'package:MoviePKR/screens/main_page.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:splashscreen/splashscreen.dart';
+import 'package:splashscreen/splashscreen.dart'; //https://pub.dev/packages/splashscreen
 
 class MainSplashScreen extends StatefulWidget {
   @override

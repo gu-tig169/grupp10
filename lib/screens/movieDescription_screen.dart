@@ -117,6 +117,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     );
   }
 
+// Här kan summa av användares rating visas, vet inte hur svårt detta är dock
   Widget _starRating() {
     return SmoothStarRating(
       size: 15,
@@ -184,6 +185,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     ]);
   }
 
+//Funktion som låter användaren ratea filmen, datan kan skickas till api och sedan visas i widgeten _starRating
   void show() {
     showDialog(
         context: context,
@@ -201,7 +203,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                 title: 'Movie review',
                 description: 'What did you think about this movie? Tell us!',
                 submitButton: 'Sumbit',
-                accentColor: Color.fromARGB(225, 49, 137, 173), // optional
+                accentColor: Color.fromARGB(225, 49, 137, 173),
                 onSubmitPressed: (int rating) {
                   print("onSubmitPressed: rating = $rating");
                 },

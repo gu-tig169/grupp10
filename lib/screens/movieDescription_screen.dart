@@ -73,7 +73,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
   Widget _textBox() {
     return Container(
         padding: EdgeInsets.only(left: 20, top: 10),
-        color: Color.fromARGB(225, 18, 18, 30).withOpacity(0.3),
+        color: AppColors.secondaryColor.withOpacity(0.3),
         height: 200,
         width: 350,
         child: Column(
@@ -152,12 +152,11 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              splashColor: Color.fromARGB(225, 49, 137, 173),
-              focusColor: Color.fromARGB(225, 49, 137, 173),
+              splashColor: AppColors.thirdColor,
+              focusColor: AppColors.thirdColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(
-                      color: Color.fromARGB(225, 49, 137, 173), width: 3)),
+                  side: BorderSide(color: AppColors.thirdColor, width: 3)),
               onPressed: (
                   //Här kan man antingen direkt lägga till filmen i listan eller ha en dialog som frågar
                   //en till gång om man vill lägga till filmen på sin lista samt i vilken lista osv.
@@ -171,13 +170,12 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                 'RATE',
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
               ),
-              backgroundColor: Color.fromARGB(225, 49, 137, 173),
-              splashColor: Color.fromARGB(225, 49, 137, 173),
-              focusColor: Color.fromARGB(225, 49, 137, 173),
+              backgroundColor: AppColors.thirdColor,
+              splashColor: AppColors.thirdColor,
+              focusColor: AppColors.thirdColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(
-                      color: Color.fromARGB(225, 49, 137, 173), width: 3)),
+                  side: BorderSide(color: AppColors.thirdColor, width: 3)),
               onPressed: () {
                 show();
               })),
@@ -197,13 +195,13 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                       headline6: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.w300)),
                   dialogBackgroundColor:
-                      Color.fromARGB(225, 18, 18, 30).withOpacity(0.7)),
+                      AppColors.secondaryColor.withOpacity(0.7)),
               child: RatingDialog(
                 icon: Image.asset('assets/images/icon.png', height: 60),
                 title: 'Movie review',
                 description: 'What did you think about this movie? Tell us!',
                 submitButton: 'Sumbit',
-                accentColor: Color.fromARGB(225, 49, 137, 173),
+                accentColor: AppColors.primaryColor,
                 onSubmitPressed: (int rating) {
                   print("onSubmitPressed: rating = $rating");
                 },

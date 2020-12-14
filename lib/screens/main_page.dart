@@ -103,31 +103,44 @@ Widget _movieList(){
       child: ListView.builder(
         itemCount: 9, // Visar 9 st filmer nu.
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SingleChildScrollView( // Man kan scrolla mha touchskärmen.
-              child: Column(
-                children: <Widget> [
-                  // Här är filmerna.
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text("INSERT IMAGE"), // Vet inte hur man gör detta riktigt!
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text("Avengers: Endgame", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text("120 min", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text("Rating: 4.5 stars", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+          return SingleChildScrollView( // Man kan scrolla mha touchskärmen.
+            child: Column(
+              children: <Widget> [
+                // Här är filmerna.
+                Card(
+                  color: Colors.transparent,
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 260,
+                        width: double.infinity,
+                      child: Column(
+                        children: <Widget> [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 190,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          "https://image.tmdb.org/t/p/original/or06FN3Dka5tukK1e9sl16pB3iy.jpg")
+                                  )
+                              ),
+                            ),
+                          ),
+                          Text("Avengers: Endgame", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800)),
+                          Text("120 min", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                          Text("Rating: 4.5 stars", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600))
+
+                        ]
+                      )
+                    ),
                   )
-                ]
-              ),
-            )
+                )
+              ]
+            ),
           );
         }
       ),

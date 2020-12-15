@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       // home: MyHomePage(title: 'MoviePKR'),
-      // home: MainSplashScreen(),
-      home: SearchResult(),
+      home: MainSplashScreen(),
+      // home: SearchResult(),
     );
   }
 }

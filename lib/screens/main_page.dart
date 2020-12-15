@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:MoviePKR/screens/savedLists_screen.dart';
 import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => SavedListsScreen()),
+                        MaterialPageRoute(builder: (context) => SavedList()),
                       )
                     }
                 },

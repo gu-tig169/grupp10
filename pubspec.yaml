@@ -24,6 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
   splashscreen:
+  smooth_star_rating: ^1.0.4+2
+  rating_dialog: ^1.0.0
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -44,6 +47,12 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/images/logo.png
+    - assets/images/avengers.jpg
+    - assets/images/icon.png
+
 
   # To add assets to your application, add an assets section, like this:
   assets:

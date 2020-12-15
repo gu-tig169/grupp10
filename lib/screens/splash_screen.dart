@@ -1,4 +1,5 @@
 import 'package:MoviePKR/screens/main_page.dart';
+import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:splashscreen/splashscreen.dart'; //https://pub.dev/packages/splashscreen
 
@@ -20,7 +21,14 @@ class _MainSplashScreenState extends State<MainSplashScreen> {
   Widget build(BuildContext context) {
     return new SplashScreen(
       navigateAfterFuture: loadFromFuture(),
-      title: Text('Welcome to this splashscreen'),
+      gradientBackground: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [AppColors.primaryColor, AppColors.secondaryColor]),
+      image: Image.asset(
+        'assets/images/logo.png',
+      ),
+      photoSize: 100,
     );
   }
 }

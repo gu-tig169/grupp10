@@ -25,14 +25,7 @@ class SearchResult extends StatelessWidget {
             ),
             centerTitle: true,
           ),
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                child: MovieListWidget(),
-                flex: 6,
-              ),
-            ],
-          ),
+          body: MovieListWidget(),
         ));
   }
 

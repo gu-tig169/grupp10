@@ -29,9 +29,8 @@ class SearchResult extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: MovieListWidget(),
-                flex: 4,
+                flex: 6,
               ),
-              _relatedInfo()
             ],
           ),
         ));
@@ -148,13 +147,13 @@ class SearchResult extends StatelessWidget {
   //       });
   // }
 
-  Widget _relatedInfo() {
-    return Flexible(
-        child: Container(
-            child: Padding(
+  /*  Widget _relatedInfo() {
+    // return Flexible(
+    return Container(
+        child: Padding(
       padding: EdgeInsets.all(15),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -179,11 +178,8 @@ class SearchResult extends StatelessWidget {
               )),
             ],
           ),
-          Container(
-            height: 5,
-          ),
         ],
       ),
-    )));
-  }
+    )); //);
+  } */
 }

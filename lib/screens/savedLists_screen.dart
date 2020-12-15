@@ -53,7 +53,7 @@ class SavedList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Action Movies',
+                            '${mylist[index]}',
                             style: TextStyle(color: Colors.white, fontSize: 16),
                           ),
                           SizedBox(

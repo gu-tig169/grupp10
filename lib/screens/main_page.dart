@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:MoviePKR/screens/savedLists_screen.dart';
 import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:MoviePKR/screens/movieDescription_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -46,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SavedListsScreen()),
+                            builder: (context) => SavedList()),
                       )
                     }
                 },
@@ -120,37 +121,46 @@ Widget _movieList() {
                 Card(
                     color: Colors.transparent,
                     elevation: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                          height: 260,
-                          width: double.infinity,
-                          child: Column(children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 190,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            "https://image.tmdb.org/t/p/original/or06FN3Dka5tukK1e9sl16pB3iy.jpg"))),
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => new DescriptionScreen()),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                            height: 260,
+                            width: double.infinity,
+                            child: Column(children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  height: 190,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              "https://image.tmdb.org/t/p/original/or06FN3Dka5tukK1e9sl16pB3iy.jpg"))),
+                                ),
                               ),
-                            ),
-                            Text("Avengers: Endgame",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w800)),
-                            Text("120 min",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600)),
-                            Text("Rating: 4.5 stars",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600))
-                          ])),
+                              Text("Avengers: Endgame",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w800)),
+                              Text("120 min",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600)),
+                              Text("Rating: 4.5 stars",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600))
+                            ])),
+                      ),
                     ))
               ]),
             );

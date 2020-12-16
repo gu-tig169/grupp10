@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:MoviePKR/screens/savedLists_screen.dart';
+import 'package:MoviePKR/screens/search_result.dart';
 import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:MoviePKR/screens/movieDescription_screen.dart';
@@ -46,8 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => SavedList()),
+                        MaterialPageRoute(builder: (context) => SavedList()),
                       )
                     }
                 },
@@ -67,7 +67,7 @@ Widget _movieWidget(context, title) {
       child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(children: <Widget>[
-            _searchBar(),
+            _searchBar(context),
             Padding(
               padding: EdgeInsets.fromLTRB(8, 32, 8, 8),
               child: Container(
@@ -84,7 +84,7 @@ Widget _movieWidget(context, title) {
 }
 
 // Sökrutan.
-Widget _searchBar() {
+Widget _searchBar(BuildContext context) {
   TextEditingController textEditingController;
   return Row(children: <Widget>[
     Flexible(
@@ -102,6 +102,11 @@ Widget _searchBar() {
         color: Colors.white,
         onPressed: () {
           // Utför sökning, gör någonting med textEditingController.
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchResult(),
+              ));
         })
   ]);
 }
@@ -126,7 +131,8 @@ Widget _movieList() {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => new DescriptionScreen()),
+                              builder: (BuildContext context) =>
+                                  new DescriptionScreen()),
                         );
                       },
                       child: Padding(

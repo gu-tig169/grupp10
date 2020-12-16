@@ -5,6 +5,8 @@ import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:MoviePKR/screens/movieDescription_screen.dart';
 
+import '../util/constants.dart';
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -15,14 +17,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController textEditingController = TextEditingController();
-
-  @override
-  void dispose() {
-    textEditingController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -94,29 +88,26 @@ Widget _movieWidget(context, title) {
 // Sökrutan.
 Widget _searchBar(BuildContext context) {
   TextEditingController textEditingController = TextEditingController();
-  return Builder(
-      builder: (context) => Row(children: <Widget>[
-            Flexible(
-              child: TextField(
-                controller: textEditingController,
-                decoration: InputDecoration(
-                  labelText: 'Search for movies',
-                  labelStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300),
-                ),
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            IconButton(
+  return Builder(builder: (context) {
+    return Container(
+      padding: EdgeInsets.only(left: 10, right: 10),
+      child: Material(
+        color: AppColors.primaryColor.withOpacity(0.7),
+        elevation: 0.0,
+        borderRadius: BorderRadius.circular(25.0),
+        child: TextFormField(
+          controller: textEditingController,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            prefixIcon: IconButton(
                 icon: Icon(Icons.search),
                 color: Colors.white,
                 onPressed: () {
+                  // Utför sökning, gör någonting med textEditingController.
                   if (textEditingController.text.isEmpty) {
                     Scaffold.of(context).showSnackBar(SnackBar(
                         backgroundColor:
-                            Color.fromARGB(225, 18, 18, 30).withOpacity(0.9),
+                            AppColors.secondaryColor.withOpacity(0.8),
                         content: Text(
                           'Search text is empty',
                           textAlign: TextAlign.center,
@@ -129,9 +120,15 @@ Widget _searchBar(BuildContext context) {
                           builder: (context) => SearchResult(),
                         ));
                   }
-                  // Utför sökning, gör någonting med textEditingController.
-                })
-          ]));
+                }),
+            contentPadding: EdgeInsets.only(left: 15.0, top: 15.0),
+            hintText: 'Search for movies',
+            hintStyle: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  });
 }
 
 // Listan med filmerna. Hårdkodad!

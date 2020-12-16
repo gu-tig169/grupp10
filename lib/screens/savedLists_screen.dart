@@ -1,7 +1,10 @@
+import 'package:MoviePKR/models/movieList.dart';
+import 'package:MoviePKR/providers/movieLists_provider.dart';
 import 'package:MoviePKR/screens/singleList_screen.dart';
 import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SavedList extends StatefulWidget {
   @override
@@ -45,8 +48,11 @@ class _SavedListState extends State<SavedList> {
   ];
 
   ListView _mylist() {
+    final snapshot = Provider.of<MovieLists>(context, listen: false);
+    var list = snapshot.movieLists;
+
     return ListView.builder(
-      itemCount: mylist.length,
+      itemCount: list.length,
       padding: EdgeInsets.all(10),
       //separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
@@ -84,13 +90,13 @@ class _SavedListState extends State<SavedList> {
                           children: <Widget>[
                             Flexible(
                               child: Text(
-                                '${mylist[index]}',
+                                snapshot.movieLists[index].listTitle,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 16),
                               ),
                             ),
                             Text(
-                              '5 items',
+                              snapshot.movieLists[index].count.toString(),
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
@@ -177,7 +183,18 @@ class _SavedListState extends State<SavedList> {
             style: TextStyle(color: Colors.white, fontSize: 15.0),
             textAlign: TextAlign.center,
           ),
-          onPressed: () {}),
+          onPressed: () {
+            setState(() {
+              //replace this provider with real code.
+              Provider.of<MovieLists>(context, listen: false)
+                  .movieLists
+                  .add(new MovieList('Test'));
+
+              //Don 't remove this.
+              Navigator.of(context, rootNavigator: true)
+                  .pop(); //Dismiss the dialog
+            });
+          }),
     );
   }
 }

@@ -6,5 +6,8 @@ class MovieList {
 
   MovieList(String title) {
     listTitle = title;
+    _movies = [];
   }
+
+  int get count => _movies.length;
 }

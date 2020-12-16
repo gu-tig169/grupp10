@@ -58,22 +58,32 @@ class _SavedListState extends State<SavedList> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(left: 5),
+                      child: SizedBox(
+                        width: 75,
+                        height: double.infinity,
+                        child: Container(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                     Expanded(
                         child: Padding(
                       padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            '${mylist[index]}',
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          Flexible(
+                            child: Text(
+                              '${mylist[index]}',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            ),
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
                           Text(
-                            'This is a movie list description......',
-                            style: TextStyle(color: Colors.white, fontSize: 12),
+                            '5 items',
+                            style: TextStyle(color: Colors.white),
                           ),
                         ],
                       ),
@@ -110,7 +120,8 @@ class _SavedListState extends State<SavedList> {
         barrierDismissible: true,
         builder: (context) {
           return AlertDialog(
-              backgroundColor: Color.fromARGB(225, 18, 18, 30).withOpacity(0.8),
+              backgroundColor:
+                  Color.fromARGB(225, 18, 18, 30).withOpacity(0.95),
               shape: new RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               title: Text(

@@ -35,10 +35,10 @@ class _SavedListState extends State<SavedList> {
   }
 
   final List<String> mylist = [
-    'Action movies',
-    'English movies',
-    'Asian movies',
-    'Bollywood movies',
+    'Movies to watch with kids',
+    'Movies I Hate',
+    'All-times best',
+    'Williams best Bollywood',
   ];
 
   ListView _mylist() {
@@ -72,7 +72,7 @@ class _SavedListState extends State<SavedList> {
                             height: 10,
                           ),
                           Text(
-                            'This movie category is about......',
+                            'This is a movie list description......',
                             style: TextStyle(color: Colors.white, fontSize: 12),
                           ),
                         ],
@@ -98,7 +98,7 @@ class _SavedListState extends State<SavedList> {
             show();
           });
         },
-        label: Text('Create List'),
+        label: Text('New List'),
       ),
     );
   }
@@ -129,6 +129,7 @@ class _SavedListState extends State<SavedList> {
   Widget _textInputField() {
     return TextField(
         cursorColor: Colors.white,
+        style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           labelStyle: TextStyle(
               color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300),

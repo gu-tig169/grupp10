@@ -1,4 +1,3 @@
-import 'package:MoviePKR/screens/search_result.dart';
 import 'package:MoviePKR/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +13,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      // home: MyHomePage(title: 'MoviePKR'),
       home: MainSplashScreen(),
-      // home: SearchResult(),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:MoviePKR/screens/singleList_screen.dart';
 import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,45 +52,51 @@ class _SavedListState extends State<SavedList> {
           color: Colors.transparent,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
-            child: Container(
-                height: 80,
-                width: double.infinity,
-                color: Colors.transparent,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(left: 5),
-                      child: SizedBox(
-                        width: 75,
-                        height: double.infinity,
-                        child: Container(
-                          color: Colors.white,
+            child: FlatButton(
+              onPressed: () => {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => new MovieListScreen()))
+              },
+              child: Container(
+                  height: 80,
+                  width: double.infinity,
+                  color: Colors.transparent,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 5),
+                        child: SizedBox(
+                          width: 75,
+                          height: double.infinity,
+                          child: Container(
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              '${mylist[index]}',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
+                      Expanded(
+                          child: Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Flexible(
+                              child: Text(
+                                '${mylist[index]}',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
                             ),
-                          ),
-                          Text(
-                            '5 items',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    )),
-                  ],
-                )),
+                            Text(
+                              '5 items',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      )),
+                    ],
+                  )),
+            ),
           ),
         );
       },

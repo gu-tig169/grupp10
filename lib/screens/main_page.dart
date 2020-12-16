@@ -94,34 +94,44 @@ Widget _movieWidget(context, title) {
 // Sökrutan.
 Widget _searchBar(BuildContext context) {
   TextEditingController textEditingController = TextEditingController();
-  return Row(children: <Widget>[
-    Flexible(
-      child: TextField(
-        controller: textEditingController,
-        decoration: InputDecoration(
-          labelText: 'Search for movies',
-          labelStyle: TextStyle(
-              color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300),
-        ),
-        style: TextStyle(color: Colors.white),
-      ),
-    ),
-    IconButton(
-        icon: Icon(Icons.search),
-        color: Colors.white,
-        onPressed: () {
-          if (textEditingController.text.isEmpty) {
-            print('Text is empty');
-          } else {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SearchResult(),
-                ));
-          }
-          // Utför sökning, gör någonting med textEditingController.
-        })
-  ]);
+  return Builder(
+      builder: (context) => Row(children: <Widget>[
+            Flexible(
+              child: TextField(
+                controller: textEditingController,
+                decoration: InputDecoration(
+                  labelText: 'Search for movies',
+                  labelStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w300),
+                ),
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            IconButton(
+                icon: Icon(Icons.search),
+                color: Colors.white,
+                onPressed: () {
+                  if (textEditingController.text.isEmpty) {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                        backgroundColor:
+                            Color.fromARGB(225, 18, 18, 30).withOpacity(0.9),
+                        content: Text(
+                          'Search text is empty',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 15),
+                        )));
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SearchResult(),
+                        ));
+                  }
+                  // Utför sökning, gör någonting med textEditingController.
+                })
+          ]));
 }
 
 // Listan med filmerna. Hårdkodad!

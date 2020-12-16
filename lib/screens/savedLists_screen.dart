@@ -26,7 +26,9 @@ class _SavedListState extends State<SavedList> {
             backgroundColor: Colors.transparent,
             title: Text(
               'My Movie Lists',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w300),
+              style: TextStyle(
+                fontSize: 24,
+              ),
             ),
             centerTitle: true,
           ),

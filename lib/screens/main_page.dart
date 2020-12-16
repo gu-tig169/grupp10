@@ -30,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
+            centerTitle: true,
             title: Text('The Movies App', textAlign: TextAlign.center),
             actions: <Widget>[
               PopupMenuButton<int>(
@@ -94,6 +95,7 @@ Widget _searchBar(BuildContext context) {
           labelStyle: TextStyle(
               color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300),
         ),
+        style: TextStyle(color: Colors.white),
       ),
     ),
     IconButton(
@@ -173,3 +175,4 @@ Widget _movieList() {
     ),
   );
 }
+//TODO: Extract main scaffold widget (with AppBar)

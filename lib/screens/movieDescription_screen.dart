@@ -140,14 +140,14 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     );
   }
 
-
   Widget _buttons() {
     return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
       Container(
           height: 40,
           width: 100,
           child: FloatingActionButton.extended(
-              heroTag: "btn1", // Herotag måste finnas (för att vyn ska fungera på min dator).
+              heroTag:
+                  "btn1", // Herotag måste finnas (för att vyn ska fungera på min dator).
               label: Text(
                 'ADD TO LIST',
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
@@ -168,7 +168,8 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
           height: 40,
           width: 100,
           child: FloatingActionButton.extended(
-              heroTag: "btn2", // Herotag måste finnas (för att vyn ska fungera på min dator).
+              heroTag:
+                  "btn2", // Herotag måste finnas (för att vyn ska fungera på min dator).
               label: Text(
                 'RATE',
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
@@ -185,8 +186,6 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
       Container(width: 10)
     ]);
   }
-
-
 
 //Funktion som låter användaren ratea filmen, datan kan skickas till api och sedan visas i widgeten _starRating
   void show() {
@@ -215,3 +214,4 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
         });
   }
 }
+//TODO: Add function to add to list button (pop up to show saved lists??)

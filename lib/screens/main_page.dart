@@ -103,6 +103,9 @@ Widget _searchBar(BuildContext context) {
         color: Colors.white,
         onPressed: () {
           // Utför sökning, gör någonting med textEditingController.
+          if (!textEditingController.text.trim().isEmpty) {
+            print('text is not empty, geo to search result');
+          }
           Navigator.push(
               context,
               MaterialPageRoute(

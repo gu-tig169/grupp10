@@ -23,7 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  splashscreen:
+  splashscreen: any
+  provider: any
   smooth_star_rating: ^1.0.4+2
   rating_dialog: ^1.0.0
 

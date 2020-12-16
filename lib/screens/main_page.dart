@@ -15,6 +15,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final TextEditingController textEditingController = TextEditingController();
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -85,7 +93,7 @@ Widget _movieWidget(context, title) {
 
 // Sökrutan.
 Widget _searchBar(BuildContext context) {
-  TextEditingController textEditingController;
+  TextEditingController textEditingController = TextEditingController();
   return Row(children: <Widget>[
     Flexible(
       child: TextField(
@@ -102,12 +110,16 @@ Widget _searchBar(BuildContext context) {
         icon: Icon(Icons.search),
         color: Colors.white,
         onPressed: () {
+          if (textEditingController.text.isEmpty) {
+            print('Text is empty');
+          } else {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchResult(),
+                ));
+          }
           // Utför sökning, gör någonting med textEditingController.
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SearchResult(),
-              ));
         })
   ]);
 }

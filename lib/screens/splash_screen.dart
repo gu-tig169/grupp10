@@ -28,7 +28,7 @@ class _MainSplashScreenState extends State<MainSplashScreen> {
       image: Image.asset(
         'assets/images/logo.png',
       ),
-      photoSize: 100,
+      photoSize: 160,
     );
   }
 }

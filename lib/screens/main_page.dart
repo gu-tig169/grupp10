@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:MoviePKR/screens/savedLists_screen.dart';
 import 'package:MoviePKR/screens/search_result.dart';
 import 'package:MoviePKR/util/constants.dart';

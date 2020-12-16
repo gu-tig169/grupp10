@@ -5,6 +5,8 @@ import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:MoviePKR/screens/movieDescription_screen.dart';
 
+import '../util/constants.dart';
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -86,30 +88,34 @@ Widget _movieWidget(context, title) {
 // Sökrutan.
 Widget _searchBar(BuildContext context) {
   TextEditingController textEditingController;
-  return Row(children: <Widget>[
-    Flexible(
-      child: TextField(
+  return Container(
+    padding: EdgeInsets.only(left: 10, right: 10),
+    child: Material(
+      color: AppColors.primaryColor.withOpacity(0.7),
+      elevation: 0.0,
+      borderRadius: BorderRadius.circular(25.0),
+      child: TextFormField(
         controller: textEditingController,
         decoration: InputDecoration(
-          labelText: 'Search for movies',
-          labelStyle: TextStyle(
-              color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300),
+          border: InputBorder.none,
+          prefixIcon: IconButton(
+              icon: Icon(Icons.search),
+              color: Colors.white,
+              onPressed: () {
+                // Utför sökning, gör någonting med textEditingController.
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchResult(),
+                    ));
+              }),
+          contentPadding: EdgeInsets.only(left: 15.0, top: 15.0),
+          hintText: 'Search for movies',
+          hintStyle: TextStyle(color: Colors.white),
         ),
-        style: TextStyle(color: Colors.white),
       ),
     ),
-    IconButton(
-        icon: Icon(Icons.search),
-        color: Colors.white,
-        onPressed: () {
-          // Utför sökning, gör någonting med textEditingController.
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SearchResult(),
-              ));
-        })
-  ]);
+  );
 }
 
 // Listan med filmerna. Hårdkodad!

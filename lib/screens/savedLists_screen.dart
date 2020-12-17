@@ -48,22 +48,7 @@ class _SavedListState extends State<SavedList> {
   ];
 
   //William for add en lsit
-  TextEditingController textEditingController;
-  String listTitle;
-
-  //William setTextController
-  void setTextController() {
-    textEditingController = TextEditingController();
-
-    textEditingController.addListener(() {
-      setState(() {
-        if (textEditingController.text != null &&
-            textEditingController.text != '') {
-          listTitle = textEditingController.text;
-        }
-      });
-    });
-  }
+  TextEditingController textEditingController = TextEditingController();
 
   ListView _mylist() {
     final snapshot = Provider.of<MovieLists>(context, listen: false);
@@ -139,9 +124,6 @@ class _SavedListState extends State<SavedList> {
         onPressed: () {
           setState(() {
             show();
-
-            //William
-            setTextController();
           });
         },
         label: Text('New List'),
@@ -212,16 +194,12 @@ class _SavedListState extends State<SavedList> {
           ),
           onPressed: () {
             setState(() {
-              if (listTitle != null && listTitle != '') {
+              if (textEditingController.text.trim().isNotEmpty) {
                 //replace this provider with real code.
                 Provider.of<MovieLists>(context, listen: false)
                     .movieLists
-                    .add(new MovieList(listTitle));
-
-                //clear the text. William
+                    .add(new MovieList(textEditingController.text));
                 textEditingController.text = '';
-                listTitle = '';
-
                 //Don 't remove this.
                 Navigator.of(context, rootNavigator: true)
                     .pop(); //Dismiss the dialog

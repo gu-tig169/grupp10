@@ -40,12 +40,8 @@ class _SavedListState extends State<SavedList> {
         ));
   }
 
-  final List<String> mylist = [
-    'Movies to watch with kids',
-    'Movies I Hate',
-    'All-times best',
-    'Williams best Bollywood',
-  ];
+  //William for add en lsit
+  TextEditingController textEditingController = TextEditingController();
 
   ListView _mylist() {
     final snapshot = Provider.of<MovieLists>(context, listen: false);
@@ -154,6 +150,12 @@ class _SavedListState extends State<SavedList> {
 
   Widget _textInputField() {
     return TextField(
+        //William. set controll to TextField
+        maxLength: 30,
+        maxLengthEnforced: true,
+        controller: textEditingController,
+        //
+
         cursorColor: Colors.white,
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
@@ -185,14 +187,17 @@ class _SavedListState extends State<SavedList> {
           ),
           onPressed: () {
             setState(() {
-              //replace this provider with real code.
-              Provider.of<MovieLists>(context, listen: false)
-                  .movieLists
-                  .add(new MovieList('Test'));
+              if (textEditingController.text.trim().isNotEmpty) {
+                //replace this provider with real code.
+                Provider.of<MovieLists>(context, listen: false)
+                    .movieLists
+                    .add(new MovieList(textEditingController.text));
+                textEditingController.text = '';
+                //Don 't remove this.
+                Navigator.of(context, rootNavigator: true)
+                    .pop(); //Dismiss the dialog
 
-              //Don 't remove this.
-              Navigator.of(context, rootNavigator: true)
-                  .pop(); //Dismiss the dialog
+              }
             });
           }),
     );

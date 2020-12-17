@@ -1,9 +1,11 @@
 import 'dart:ui';
+import 'package:MoviePKR/providers/movieLists_provider.dart';
 import 'package:MoviePKR/screens/savedLists_screen.dart';
 import 'package:MoviePKR/screens/search_result.dart';
 import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:MoviePKR/screens/movieDescription_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../util/constants.dart';
 
@@ -81,7 +83,7 @@ Widget _movieWidget(context, title) {
                               fontSize: 18,
                               fontWeight: FontWeight.w900)))),
             ),
-            _movieList(),
+            _movieList(context),
           ])));
 }
 
@@ -132,12 +134,13 @@ Widget _searchBar(BuildContext context) {
 }
 
 // Listan med filmerna. Hårdkodad!
-Widget _movieList() {
+Widget _movieList(BuildContext context) {
+  var trendingList = Provider.of<MovieLists>(context).trendingList;
   return Expanded(
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView.builder(
-          itemCount: 9, // Visar 9 st filmer nu.
+          itemCount: trendingList.length, // Visar 9 st filmer nu.
           itemBuilder: (context, index) {
             return SingleChildScrollView(
               // Man kan scrolla mha touchskärmen.
@@ -168,20 +171,17 @@ Widget _movieList() {
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
-                                          image: NetworkImage(
-                                              "https://image.tmdb.org/t/p/original/or06FN3Dka5tukK1e9sl16pB3iy.jpg"))),
+                                          image: NetworkImage(ApiData
+                                                  .postersUrl +
+                                              trendingList[index].posterPath))),
                                 ),
                               ),
-                              Text("Avengers: Endgame",
+                              Text(trendingList[index].title,
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w800)),
-                              Text("120 min",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600)),
-                              Text("Rating: 4.5 stars",
+                              Text(trendingList[index].rating.toString(),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600))
@@ -195,3 +195,5 @@ Widget _movieList() {
   );
 }
 //TODO: Extract main scaffold widget (with AppBar)
+//TODO: Fix padding under ListView
+//TODO: Implement grid view above card to show more films by raw.

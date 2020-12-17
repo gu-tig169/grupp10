@@ -47,6 +47,24 @@ class _SavedListState extends State<SavedList> {
     'Williams best Bollywood',
   ];
 
+  //William for add en lsit
+  TextEditingController textEditingController;
+  String listTitle;
+
+  //William setTextController
+  void setTextController() {
+    textEditingController = TextEditingController();
+
+    textEditingController.addListener(() {
+      setState(() {
+        if (textEditingController.text != null &&
+            textEditingController.text != '') {
+          listTitle = textEditingController.text;
+        }
+      });
+    });
+  }
+
   ListView _mylist() {
     final snapshot = Provider.of<MovieLists>(context, listen: false);
     var list = snapshot.movieLists;
@@ -121,6 +139,9 @@ class _SavedListState extends State<SavedList> {
         onPressed: () {
           setState(() {
             show();
+
+            //William
+            setTextController();
           });
         },
         label: Text('New List'),
@@ -154,6 +175,12 @@ class _SavedListState extends State<SavedList> {
 
   Widget _textInputField() {
     return TextField(
+        //William. set controll to TextField
+        maxLength: 30,
+        maxLengthEnforced: true,
+        controller: textEditingController,
+        //
+
         cursorColor: Colors.white,
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
@@ -185,14 +212,21 @@ class _SavedListState extends State<SavedList> {
           ),
           onPressed: () {
             setState(() {
-              //replace this provider with real code.
-              Provider.of<MovieLists>(context, listen: false)
-                  .movieLists
-                  .add(new MovieList('Test'));
+              if (listTitle != null && listTitle != '') {
+                //replace this provider with real code.
+                Provider.of<MovieLists>(context, listen: false)
+                    .movieLists
+                    .add(new MovieList(listTitle));
 
-              //Don 't remove this.
-              Navigator.of(context, rootNavigator: true)
-                  .pop(); //Dismiss the dialog
+                //clear the text. William
+                textEditingController.text = '';
+                listTitle = '';
+
+                //Don 't remove this.
+                Navigator.of(context, rootNavigator: true)
+                    .pop(); //Dismiss the dialog
+
+              }
             });
           }),
     );

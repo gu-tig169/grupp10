@@ -40,13 +40,6 @@ class _SavedListState extends State<SavedList> {
         ));
   }
 
-  final List<String> mylist = [
-    'Movies to watch with kids',
-    'Movies I Hate',
-    'All-times best',
-    'Williams best Bollywood',
-  ];
-
   //William for add en lsit
   TextEditingController textEditingController = TextEditingController();
 

@@ -1,6 +1,7 @@
 import 'package:MoviePKR/widgets/movieList_listview.dart';
 import 'package:flutter/material.dart';
 import 'package:MoviePKR/util/constants.dart';
+import 'package:MoviePKR/screens/main_page.dart';
 import 'package:flutter/rendering.dart';
 
 class SearchResult extends StatelessWidget {
@@ -25,7 +26,24 @@ class SearchResult extends StatelessWidget {
             ),
             centerTitle: true,
           ),
-          body: MovieListWidget(),
+          // Added the new stuff here. Search bar, and a text showing your string query.
+          body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(children: <Widget>[
+                SearchBar(context),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(8, 16, 8, 8),
+                  child: Container(
+                      child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text("*insert what I searched for here*",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500)))),
+                ),
+                Expanded(child: MovieListWidget()),
+              ])),
         ));
   }
 

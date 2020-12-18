@@ -66,10 +66,13 @@ class _SavedListState extends State<SavedList> {
                     SizedBox(
                       width: 110,
                       height: double.infinity,
-                      child: FlatButton( // Moved flatbutton here.
+                      child: FlatButton(
+                        // Moved flatbutton here.
                         onPressed: () => {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => new MovieListScreen()))
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => new MovieListScreen()))
                         },
                         child: Container(
                           color: Colors.white,
@@ -78,31 +81,31 @@ class _SavedListState extends State<SavedList> {
                     ),
                     Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 15, 5, 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Flexible(
-                                child: Text(
-                                  snapshot.movieLists[index].listTitle,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                ),
-                              ),
-                              Text(
-                                snapshot.movieLists[index].count.toString(),
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
+                      padding: const EdgeInsets.fromLTRB(0, 15, 5, 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              snapshot.movieLists[index].listTitle,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            ),
                           ),
-                        )),
+                          Text(
+                            snapshot.movieLists[index].count.toString(),
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    )),
                     Container(
                       child: IconButton(
                           icon: Icon(Icons.close),
                           color: Colors.white,
                           splashColor: Colors.transparent,
-                          onPressed: () => setState(() => list.removeAt(index))
-                      ),
+                          onPressed: () =>
+                              setState(() => snapshot.removeList(list[index]))),
                     )
                   ],
                 )),
@@ -137,7 +140,7 @@ class _SavedListState extends State<SavedList> {
         builder: (context) {
           return AlertDialog(
               backgroundColor:
-              Color.fromARGB(225, 18, 18, 30).withOpacity(0.95),
+                  Color.fromARGB(225, 18, 18, 30).withOpacity(0.95),
               shape: new RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               title: Text(
@@ -163,14 +166,12 @@ class _SavedListState extends State<SavedList> {
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           labelStyle: TextStyle(
-              color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300
-          ),
+              color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300),
           enabledBorder:
-          OutlineInputBorder(borderSide: BorderSide(color: Colors.white70)),
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.white70)),
           border: const OutlineInputBorder(),
           labelText: 'List Name',
-        )
-    );
+        ));
   }
 
   Widget _addListButton() {
@@ -195,8 +196,8 @@ class _SavedListState extends State<SavedList> {
               if (textEditingController.text.trim().isNotEmpty) {
                 //replace this provider with real code.
                 Provider.of<MovieLists>(context, listen: false)
-                    .movieLists
-                    .add(new MovieList(textEditingController.text));
+                    .addNewList(new MovieList(textEditingController.text));
+
                 textEditingController.text = '';
                 //Don 't remove this.
                 Navigator.of(context, rootNavigator: true)

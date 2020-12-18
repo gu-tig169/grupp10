@@ -10,8 +10,7 @@ class SavedList extends StatefulWidget {
   @override
   _SavedListState createState() => _SavedListState();
 }
-// Set button press to image only. Added closebtn that removes list of lists. Added autofocus
-// to new list textfield. Changed some padding.
+
 class _SavedListState extends State<SavedList> {
   @override
   Widget build(BuildContext context) {
@@ -97,19 +96,12 @@ class _SavedListState extends State<SavedList> {
                             ],
                           ),
                         )),
-                    //Spacer(),
                     Container(
-                      //width: 20,
                       child: IconButton(
                           icon: Icon(Icons.close),
                           color: Colors.white,
                           splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onPressed: () {
-                            setState(() {
-                              list.removeWhere((item) => item.listTitle == snapshot.movieLists[index].listTitle);
-                            });
-                          }
+                          onPressed: () => setState(() => list.removeAt(index))
                       ),
                     )
                   ],

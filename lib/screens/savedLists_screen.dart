@@ -35,15 +35,15 @@ class _SavedListState extends State<SavedList> {
             ),
             centerTitle: true,
           ),
-          body: _mylist(),
-          floatingActionButton: _floatbutton(context),
+          body: _myList(),
+          floatingActionButton: _floatButton(context),
         ));
   }
 
   //William for add en lsit
   TextEditingController textEditingController = TextEditingController();
 
-  ListView _mylist() {
+  ListView _myList() {
     final snapshot = Provider.of<MovieLists>(context, listen: false);
     var list = snapshot.movieLists;
 
@@ -55,52 +55,57 @@ class _SavedListState extends State<SavedList> {
         return Card(
           color: Colors.transparent,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
-            child: FlatButton(
-              onPressed: () => {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => new MovieListScreen()))
-              },
-              child: Container(
-                  height: 80,
-                  width: double.infinity,
-                  color: Colors.transparent,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(left: 5),
-                        child: SizedBox(
-                          width: 75,
-                          height: double.infinity,
-                          child: Container(
-                            color: Colors.white,
-                          ),
+            padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+            child: Container(
+                height: 80,
+                width: double.infinity,
+                color: Colors.transparent,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 110,
+                      height: double.infinity,
+                      child: FlatButton( // Moved flatbutton here.
+                        onPressed: () => {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (_) => new MovieListScreen()))
+                        },
+                        child: Container(
+                          color: Colors.white,
                         ),
                       ),
-                      Expanded(
-                          child: Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Flexible(
-                              child: Text(
-                                snapshot.movieLists[index].listTitle,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
+                    ),
+                    Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 15, 5, 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Flexible(
+                                child: Text(
+                                  snapshot.movieLists[index].listTitle,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
                               ),
-                            ),
-                            Text(
-                              snapshot.movieLists[index].count.toString(),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      )),
-                    ],
-                  )),
-            ),
+                              Text(
+                                snapshot.movieLists[index].count.toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        )),
+                    Container(
+                      child: IconButton(
+                          icon: Icon(Icons.close),
+                          color: Colors.white,
+                          splashColor: Colors.transparent,
+                          onPressed: () => setState(() => list.removeAt(index))
+                      ),
+                    )
+                  ],
+                )),
           ),
         );
       },
@@ -108,7 +113,7 @@ class _SavedListState extends State<SavedList> {
   }
 
   //This widget is for FloatingActionButton
-  Widget _floatbutton(BuildContext context) {
+  Widget _floatButton(BuildContext context) {
     return Container(
       width: 130,
       child: FloatingActionButton.extended(
@@ -132,7 +137,7 @@ class _SavedListState extends State<SavedList> {
         builder: (context) {
           return AlertDialog(
               backgroundColor:
-                  Color.fromARGB(225, 18, 18, 30).withOpacity(0.95),
+              Color.fromARGB(225, 18, 18, 30).withOpacity(0.95),
               shape: new RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               title: Text(
@@ -150,22 +155,22 @@ class _SavedListState extends State<SavedList> {
 
   Widget _textInputField() {
     return TextField(
-        //William. set controll to TextField
+        autofocus: true,
         maxLength: 30,
         maxLengthEnforced: true,
         controller: textEditingController,
-        //
-
         cursorColor: Colors.white,
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           labelStyle: TextStyle(
-              color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300),
+              color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300
+          ),
           enabledBorder:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.white70)),
+          OutlineInputBorder(borderSide: BorderSide(color: Colors.white70)),
           border: const OutlineInputBorder(),
           labelText: 'List Name',
-        ));
+        )
+    );
   }
 
   Widget _addListButton() {

@@ -69,7 +69,7 @@ Widget _movieWidget(context, title) {
       child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(children: <Widget>[
-            _searchBar(context),
+            SearchBar(context),
             Padding(
               padding: EdgeInsets.fromLTRB(8, 32, 8, 8),
               child: Container(
@@ -86,7 +86,7 @@ Widget _movieWidget(context, title) {
 }
 
 // Sökrutan.
-Widget _searchBar(BuildContext context) {
+Widget SearchBar(BuildContext context) {
   TextEditingController textEditingController = TextEditingController();
   return Builder(builder: (context) {
     return Container(

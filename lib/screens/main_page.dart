@@ -98,6 +98,7 @@ Widget SearchBar(BuildContext context) {
         elevation: 0.0,
         borderRadius: BorderRadius.circular(25.0),
         child: TextFormField(
+          style: TextStyle(color: Colors.white),
           controller: textEditingController,
           decoration: InputDecoration(
             border: InputBorder.none,

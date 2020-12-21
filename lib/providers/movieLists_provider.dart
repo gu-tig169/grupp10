@@ -48,7 +48,6 @@ class MovieLists with ChangeNotifier {
 
   Future<bool> saveToSF() async {
     var decoded = MovieList.encode(_myLists);
-    print(decoded);
     prefs = await SharedPreferences.getInstance();
     return await prefs.setString('key', decoded);
   }

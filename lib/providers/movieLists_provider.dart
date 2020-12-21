@@ -24,6 +24,7 @@ class MovieLists with ChangeNotifier {
 
   void removeList(MovieList movieList) {
     _myLists.remove(movieList);
+    saveToSF();
     notifyListeners();
   }
 

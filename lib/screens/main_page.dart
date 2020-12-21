@@ -140,6 +140,7 @@ Widget _movieList(BuildContext context) {
                   color: Colors.transparent,
                   elevation: 0,
                   child: Container(
+                      padding: EdgeInsets.only(left: 10, right: 10),
                       height: 195,
                       width: double.infinity,
                       child: Column(children: <Widget>[
@@ -154,7 +155,7 @@ Widget _movieList(BuildContext context) {
                               );
                             }, child: null,
                           ),
-                          height: 147,
+                          height: 160,
                           width: double.infinity,
                           decoration: BoxDecoration(
                               image: DecorationImage(
@@ -166,6 +167,7 @@ Widget _movieList(BuildContext context) {
                         Padding(
                           padding: const EdgeInsets.all(4),
                           child: Text(trendingList[index].title,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,

@@ -30,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       child: Scaffold(
+          resizeToAvoidBottomPadding: true,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             elevation: 0,
@@ -69,11 +70,11 @@ Widget _movieWidget(context, title) {
         color: Colors.transparent,
       ),
       child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
           child: Column(children: <Widget>[
             SearchBar(context),
             Padding(
-              padding: EdgeInsets.fromLTRB(8, 32, 8, 8),
+              padding: EdgeInsets.fromLTRB(8, 32, 8, 0),
               child: Container(
                   child: Align(
                       alignment: Alignment.centerLeft,
@@ -134,65 +135,56 @@ Widget SearchBar(BuildContext context) {
   });
 }
 
-// Listan med filmerna. Hårdkodad!
 Widget _movieList(BuildContext context) {
   var trendingList = Provider.of<MovieLists>(context).trendingList;
   return Expanded(
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListView.builder(
-          itemCount: trendingList.length, // Visar 9 st filmer nu.
-          itemBuilder: (context, index) {
-            return SingleChildScrollView(
-              // Man kan scrolla mha touchskärmen.
-              child: Column(children: <Widget>[
-                // Här är filmerna.
-                Card(
-                    color: Colors.transparent,
-                    elevation: 0,
-                    child: FlatButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  new DescriptionScreen()),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                            height: 260,
-                            width: double.infinity,
-                            child: Column(children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  height: 190,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: NetworkImage(ApiData
-                                                  .postersUrl +
-                                              trendingList[index].posterPath))),
-                                ),
-                              ),
-                              Text(trendingList[index].title,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w800)),
-                              Text(trendingList[index].rating.toString(),
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600))
-                            ])),
-                      ),
-                    ))
-              ]),
-            );
-          }),
-    ),
+    child: ListView.builder( // The padding around this widget caused the gap!
+        itemCount: trendingList.length,
+        itemBuilder: (context, index) {
+          return SingleChildScrollView(
+            child: Column(children: <Widget>[
+              Card(
+                  color: Colors.transparent,
+                  elevation: 0,
+                  child: FlatButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                new DescriptionScreen()),
+                      );
+                    },
+                    child: Container(
+                        height: 265,
+                        width: double.infinity,
+                        child: Column(children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 190,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: NetworkImage(ApiData
+                                              .postersUrl +
+                                          trendingList[index].posterPath))),
+                            ),
+                          ),
+                          Text(trendingList[index].title,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w800)),
+                          Text(trendingList[index].rating.toString(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600))
+                        ])),
+                  ))
+            ]),
+          );
+        }),
   );
 }
 //TODO: Extract main scaffold widget (with AppBar)

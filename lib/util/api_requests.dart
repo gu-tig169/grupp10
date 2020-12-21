@@ -1,1 +1,7 @@
-class ApiRequests {}
+class ApiRequests {
+  /**
+   * 
+   * 
+   * 
+   */
+}

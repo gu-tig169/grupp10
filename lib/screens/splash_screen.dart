@@ -16,6 +16,13 @@ class _MainSplashScreenState extends State<MainSplashScreen> {
     // await new Future.delayed(const Duration(
     //     seconds: 5)); //replace this with actual code to fetch data on app load
     await Provider.of<MovieLists>(context, listen: false).fetchTrendingList();
+    try {
+      await Provider.of<MovieLists>(context, listen: false)
+          .fetchSavedListsFromSF();
+    } catch (error) {
+      throw error;
+    }
+
     return Future.value(new MyHomePage(title: 'MoviePKR2'));
   }
 

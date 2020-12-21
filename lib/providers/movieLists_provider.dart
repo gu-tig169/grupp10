@@ -60,6 +60,6 @@ class MovieLists with ChangeNotifier {
 
   fetchSavedListsFromSF() async {
     var list = await _getList();
-    _myLists = MovieList.decode(list);
+    if (list != null) _myLists = MovieList.decode(list);
   }
 }

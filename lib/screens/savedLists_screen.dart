@@ -13,6 +13,11 @@ class SavedList extends StatefulWidget {
 
 class _SavedListState extends State<SavedList> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
@@ -194,7 +199,6 @@ class _SavedListState extends State<SavedList> {
           onPressed: () {
             setState(() {
               if (textEditingController.text.trim().isNotEmpty) {
-                //replace this provider with real code.
                 Provider.of<MovieLists>(context, listen: false)
                     .addNewList(new MovieList(textEditingController.text));
 

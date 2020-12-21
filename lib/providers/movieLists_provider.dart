@@ -5,17 +5,20 @@ import 'package:MoviePKR/models/movieList.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MovieLists with ChangeNotifier {
+  SharedPreferences prefs;
+
   List<MovieList> _myLists = [];
   List<Movie> _trendingMovies = [];
 
-  // List<MovieList> get movieLists => [..._myLists];
   List<MovieList> get movieLists => [..._myLists];
   List<Movie> get trendingList => [..._trendingMovies];
 
   void addNewList(MovieList newList) {
     _myLists.add(newList);
+    saveToSF();
     notifyListeners();
   }
 
@@ -40,5 +43,23 @@ class MovieLists with ChangeNotifier {
     } catch (error) {
       throw error;
     }
+  }
+
+  Future<bool> saveToSF() async {
+    var decoded = MovieList.encode(_myLists);
+    print(decoded);
+    prefs = await SharedPreferences.getInstance();
+    return await prefs.setString('key', decoded);
+  }
+
+  _getList() async {
+    prefs = await SharedPreferences.getInstance();
+    String data = prefs.getString('key');
+    return data;
+  }
+
+  fetchSavedListsFromSF() async {
+    var list = await _getList();
+    _myLists = MovieList.decode(list);
   }
 }

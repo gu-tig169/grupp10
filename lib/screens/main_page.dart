@@ -38,13 +38,18 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Text('The Movies App', textAlign: TextAlign.center),
             actions: <Widget>[
               PopupMenuButton<int>(
+                color: AppColors.primaryColor.withOpacity(0.8),
                 icon: Icon(Icons.more_vert_rounded, color: Colors.white),
                 itemBuilder: (context) => [
                   PopupMenuItem(
                     value: 1,
-                    child: Text('My lists'),
+                    child:
+                        Text('My lists', style: TextStyle(color: Colors.white)),
                   ),
-                  PopupMenuItem(value: 2, child: Text('Settings'))
+                  PopupMenuItem(
+                      value: 2,
+                      child: Text('Settings',
+                          style: TextStyle(color: Colors.white))),
                 ],
                 onSelected: (value) => {
                   if (value == 1)
@@ -71,7 +76,7 @@ Widget _movieWidget(context, title) {
       child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(children: <Widget>[
-            SearchBar(context),
+            searchBar(context),
             Padding(
               padding: EdgeInsets.fromLTRB(8, 32, 8, 8),
               child: Container(
@@ -88,7 +93,7 @@ Widget _movieWidget(context, title) {
 }
 
 // Sökrutan.
-Widget SearchBar(BuildContext context) {
+Widget searchBar(BuildContext context) {
   TextEditingController textEditingController = TextEditingController();
   return Builder(builder: (context) {
     return Container(

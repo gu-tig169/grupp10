@@ -1,3 +1,5 @@
+import 'package:MoviePKR/providers/movieLists_provider.dart';
+
 ///A model for movie instances.
 
 class Movie {
@@ -37,5 +39,9 @@ class Movie {
         description: json['overview'],
         posterPath: json['poster_path']);
   }
+
+  void addMovie(Movie movie) {}
+
+  void addNewList(MovieLists movieLists) {}
 }
 //Todo: do we need runTIme?

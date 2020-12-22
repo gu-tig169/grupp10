@@ -1,5 +1,7 @@
+import 'package:MoviePKR/models/Movie.dart';
 import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
@@ -9,6 +11,9 @@ class DescriptionScreen extends StatefulWidget {
 }
 
 class _DescriptionScreenState extends State<DescriptionScreen> {
+  String title;
+  String posterPath;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -159,10 +164,15 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                   side: BorderSide(color: AppColors.thirdColor, width: 3)),
-              onPressed: (
-                  //Här kan man antingen direkt lägga till filmen i listan eller ha en dialog som frågar
-                  //en till gång om man vill lägga till filmen på sin lista samt i vilken lista osv.
-                  ) {})),
+              onPressed: () {
+                setState(() {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return setupAlertDialoadContainer();
+                      });
+                });
+              })),
       Container(width: 10),
       Container(
           height: 40,
@@ -187,7 +197,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     ]);
   }
 
-//Funktion som låter användaren ratea filmen, datan kan skickas till api och sedan visas i widgeten _starRating
+  //Funktion som låter användaren ratea filmen, datan kan skickas till api och sedan visas i widgeten _starRating
   void show() {
     showDialog(
         barrierColor: Colors.black38,
@@ -200,7 +210,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                       headline6: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.w300)),
                   dialogBackgroundColor:
-                      Color.fromARGB(225, 18, 18, 30).withOpacity(0.8)),
+                      Color.fromARGB(225, 18, 18, 30).withOpacity(0.95)),
               child: RatingDialog(
                 icon: Image.asset('assets/images/icon.png', height: 40),
                 title: 'Movie review',
@@ -212,6 +222,66 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                 },
               ));
         });
+  }
+
+  int selectedValue = 1;
+
+  Widget setupAlertDialoadContainer() {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      backgroundColor: Color.fromARGB(225, 18, 18, 30).withOpacity(0.95),
+      title: Text(
+        'Add to list',
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.white),
+      ),
+      actionsPadding: EdgeInsets.only(right: 35),
+      actions: <Widget>[
+        DropdownButton(
+            iconDisabledColor: Colors.white,
+            iconEnabledColor: Colors.white.withOpacity(0.7),
+            dropdownColor: Color.fromARGB(225, 18, 18, 30).withOpacity(0.8),
+            underline: SizedBox(),
+            value: selectedValue,
+            items: [
+              DropdownMenuItem(
+                child: Text(
+                  "Favorites",
+                  style: TextStyle(color: Colors.white),
+                ),
+                value: 1,
+              ),
+              DropdownMenuItem(
+                child: Text("Harry P", style: TextStyle(color: Colors.white)),
+                value: 2,
+              ),
+            ],
+            onChanged: (value) {
+              setState(() {
+                selectedValue = value;
+              });
+            }),
+        Container(width: 20),
+        Container(
+          height: 30,
+          width: 70,
+          alignment: Alignment.bottomRight,
+          child: FloatingActionButton.extended(
+              label: Text('ADD', style: TextStyle(fontSize: 12)),
+              icon: Icon(
+                Icons.add,
+                color: Colors.white,
+                size: 18,
+              ),
+              onPressed: () {
+                Navigator.pop(context, Movie().addMovie(new Movie()));
+                /*Provider.of<Movie>(context, listen: false)
+                    .addMovie(new Movie());
+                    */
+              }),
+        )
+      ],
+    );
   }
 }
 //TODO: Add function to add to list button (pop up to show saved lists??)

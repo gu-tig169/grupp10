@@ -62,4 +62,4 @@ class Movie {
           .toList();
 }
 
-//Todo: do we need runTIme?
+//Todo: do we need runTime?

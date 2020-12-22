@@ -19,6 +19,7 @@ class MovieLists with ChangeNotifier {
   void addNewList(MovieList newList) {
     _myLists.add(newList);
     saveToSF();
+    //todo handle error/exception.
     notifyListeners();
   }
 
@@ -46,10 +47,10 @@ class MovieLists with ChangeNotifier {
     }
   }
 
-  Future<bool> saveToSF() async {
+  Future<void> saveToSF() async {
     var decoded = MovieList.encode(_myLists);
     prefs = await SharedPreferences.getInstance();
-    return await prefs.setString('key', decoded);
+    await prefs.setString('key', decoded);
   }
 
   _getList() async {

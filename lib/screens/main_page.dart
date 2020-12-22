@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:MoviePKR/providers/movieLists_provider.dart';
 import 'package:MoviePKR/screens/savedLists_screen.dart';
-import 'package:MoviePKR/screens/search_result.dart';
+import 'package:MoviePKR/screens/searchResults/search_result.dart';
 import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:MoviePKR/screens/movieDescription_screen.dart';
@@ -129,6 +129,7 @@ Widget searchBar(BuildContext context) {
 }
 
 Widget _movieList(BuildContext context) {
+  //TODO: implement SliverAppBar
   var trendingList = Provider.of<MovieLists>(context).trendingList;
   var size = MediaQuery.of(context).size;
   final double itemHeight = (size.height - kToolbarHeight - 24) / 2;

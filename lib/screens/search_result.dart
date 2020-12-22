@@ -26,8 +26,9 @@ class SearchResult extends StatelessWidget {
             ),
             centerTitle: true,
           ),
-          body: Column(children: <Widget>[ // Padding here caused keyboard gap.
-            SearchBar(context),
+          body: Column(children: <Widget>[
+            // Padding here caused keyboard gap.
+            searchBar(context),
             Padding(
               padding: EdgeInsets.fromLTRB(8, 16, 8, 8),
               child: Container(

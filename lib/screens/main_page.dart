@@ -70,20 +70,20 @@ Widget _movieWidget(context, title) {
         color: Colors.transparent,
       ),
       child: Column(children: <Widget>[
-        SearchBar(context),
+        searchBar(context),
         Container(
             padding: EdgeInsets.all(16),
             child: Text("Trending",
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 18,
+                    fontSize: 26,
                     fontWeight: FontWeight.w700))),
         _movieList(context),
       ]));
 }
 
 // Sökrutan.
-Widget SearchBar(BuildContext context) {
+Widget searchBar(BuildContext context) {
   TextEditingController textEditingController = TextEditingController();
   return Builder(builder: (context) {
     return Container(
@@ -130,60 +130,62 @@ Widget SearchBar(BuildContext context) {
 
 Widget _movieList(BuildContext context) {
   var trendingList = Provider.of<MovieLists>(context).trendingList;
+  var size = MediaQuery.of(context).size;
+  final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
+  final double itemWidth = size.width / 2;
+
   return Expanded(
-      child: GridView.count(
-        crossAxisCount: 2,
-        children: List.generate(trendingList.length, (index) {
-          return Column(children: <Widget>[
-            Expanded(
-              child: Card(
-                  color: Colors.transparent,
-                  elevation: 0,
-                  child: Container(
-                      padding: EdgeInsets.only(left: 10, right: 10),
-                      height: 195,
-                      width: double.infinity,
-                      child: Column(children: <Widget>[
-                        Container(
-                          child: FlatButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                    new DescriptionScreen()),
-                              );
-                            }, child: null,
-                          ),
-                          height: 160,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: NetworkImage(ApiData
-                                      .postersUrl +
-                                      trendingList[index].posterPath))),
-                        ),
-                        //Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Text(trendingList[index].title,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w800)),
-                        ),
-                        Flexible(
-                          child: Text(trendingList[index].rating.toString(),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600)),
-                        )
-                      ]))),
-            )
-          ]);
-        }),
-      ),
+    child: GridView.count(
+      crossAxisCount: 2,
+      childAspectRatio: (itemWidth / itemHeight),
+      children: List.generate(trendingList.length, (index) {
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        new DescriptionScreen()));
+          },
+          child: Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            elevation: 1,
+            color: Colors.transparent,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+                  child: Image(
+                      image: NetworkImage(
+                          ApiData.postersUrl + trendingList[index].posterPath)),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(trendingList[index].title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800)),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Text(trendingList[index].rating.toString(),
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w600)),
+                ),
+              ],
+            ),
+          ),
+        );
+      }),
+    ),
     /*
     child: ListView.builder( // The padding around this widget caused the gap!
         itemCount: trendingList.length,
@@ -238,6 +240,7 @@ Widget _movieList(BuildContext context) {
     */
   );
 }
+
 //TODO: Extract main scaffold widget (with AppBar)
 //TODO: Fix padding under ListView
 //TODO: Implement grid view above card to show more films by raw.

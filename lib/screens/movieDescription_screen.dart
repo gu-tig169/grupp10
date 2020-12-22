@@ -2,34 +2,59 @@ import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:MoviePKR/providers/movieLists_provider.dart';
+import 'package:MoviePKR/models/Movie.dart';
 
 class DescriptionScreen extends StatefulWidget {
+
+  final int id;
+  DescriptionScreen({Key key, this.id}) : super(key: key);
+
   @override
   _DescriptionScreenState createState() => _DescriptionScreenState();
+
 }
 
 class _DescriptionScreenState extends State<DescriptionScreen> {
+
+  Movie movie;
+  Future<Movie> getMovie() async {
+
+    movie = await MovieLists.fetchMovieByID(widget.id);
+    return movie;
+
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [AppColors.primaryColor, AppColors.secondaryColor],
-        ),
-      ),
-      child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            centerTitle: true,
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            title: Text('About movie',
-                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 24)),
-          ),
-          body: _movieWidget(context, String)),
-    );
+
+    return FutureBuilder<void> (
+      future: getMovie(),
+      // ignore: missing_return
+      builder: (context, AsyncSnapshot<void> snapshot) {
+        if (snapshot.hasData) {
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [AppColors.primaryColor, AppColors.secondaryColor],
+              ),
+            ),
+            child: Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: AppBar(
+                  centerTitle: true,
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  title: Text('About movie',
+                      style: TextStyle(fontWeight: FontWeight.w300, fontSize: 24)),
+                ),
+                body: _movieWidget(context, String)),
+          );
+        }  else {
+          return CircularProgressIndicator();}});
+
   }
 
   Widget _movieWidget(context, title) {
@@ -38,89 +63,75 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
           color: Colors.transparent,
         ),
         child: Padding(
-            padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(18),
+          child: Center(
             child: Column(children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(8, 20, 8, 8),
-                child: Container(
-                    child: Align(
-                  alignment: Alignment.centerLeft,
-                )),
-              ),
               _movieImage(),
-            ])));
+              Container(height: 16),
+              _textBox(),
+            ]),),));
   }
 
   Widget _movieImage() {
-    return Expanded(
-        child: Column(children: [
-      Container(
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-              color: Colors.black.withOpacity(0.3),
-              spreadRadius: 5,
-              blurRadius: 6,
-              offset: Offset(5, 7))
-        ]),
-        height: 300,
-        child: Image.asset('assets/images/avengers.jpg'),
-      ),
-      Container(height: 30),
-      _textBox(),
-    ]));
+
+    return Container(
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            spreadRadius: 3,
+            blurRadius: 3,
+            offset: Offset(5, 7))
+      ]),
+      height: 400,
+      child: Image(image: NetworkImage(ApiData.postersUrl + movie.posterPath)),);
+
   }
 
   Widget _textBox() {
+
     return Container(
-        padding: EdgeInsets.only(left: 20, top: 10),
+        padding: EdgeInsets.all(12),
         color: Color.fromARGB(225, 18, 18, 30).withOpacity(0.3),
-        height: 200,
-        width: 350,
+        height: 300,
+        //width: 350,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('AVENGERS: END GAME',
+              Text(movie.title,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 17)),
               Container(height: 5),
-              _shortInfo(),
+              _starRating(),
+              Container(height: 5),
+              Row(
+                children: [
+                  Icon(
+                    Icons.update_outlined,
+                    color: Colors.white.withOpacity(0.5),
+                    size: 20,
+                  ),
+                  Container(width: 5),
+                  Text(movie.runTime.toString() + " min",
+                      style: TextStyle(
+                          color: Colors.white.withOpacity(0.5),
+                          fontWeight: FontWeight.bold)),
+                ],
+              ),
               Container(height: 10),
-              _movieDescription(),
-              _buttons(),
-            ]));
+              Expanded(
+                child: Text(movie.description, style: TextStyle(color: Colors.white)),
+              ),
+              _buttons(),]));
+
   }
 
-  Widget _shortInfo() {
-    return Row(
-      children: [
-        Icon(
-          Icons.update_outlined,
-          color: Colors.white.withOpacity(0.5),
-          size: 20,
-        ),
-        Text('120 min',
-            style: TextStyle(
-                color: Colors.white.withOpacity(0.5),
-                fontWeight: FontWeight.bold)),
-        Container(width: 138),
-        Text('4.5',
-            style: TextStyle(
-                color: Colors.white.withOpacity(0.5),
-                fontWeight: FontWeight.bold)),
-        Container(width: 5),
-        _starRating(),
-      ],
-    );
-  }
-
-// Här kan summa av användares rating visas, vet inte hur svårt detta är dock
   Widget _starRating() {
     return SmoothStarRating(
-      size: 15,
+      size: 20,
       filledIconData: Icons.star,
       color: Colors.orange,
       borderColor: Colors.orange,
@@ -129,14 +140,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
       starCount: 5,
       allowHalfRating: true,
       spacing: 2.0,
-    );
-  }
-
-  Widget _movieDescription() {
-    return Container(
-      height: 80,
-      child:
-          Text('Movie description...', style: TextStyle(color: Colors.white)),
+      rating: Movie.getRating(movie.rating),
     );
   }
 
@@ -150,7 +154,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                   "btn1", // Herotag måste finnas (för att vyn ska fungera på min dator).
               label: Text(
                 'ADD TO LIST',
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
@@ -172,7 +176,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                   "btn2", // Herotag måste finnas (för att vyn ska fungera på min dator).
               label: Text(
                 'RATE',
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
               backgroundColor: AppColors.thirdColor,
               splashColor: AppColors.thirdColor,

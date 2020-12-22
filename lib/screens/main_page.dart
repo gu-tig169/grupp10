@@ -6,6 +6,7 @@ import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:MoviePKR/screens/movieDescription_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:MoviePKR/models/Movie.dart';
 
 import '../util/constants.dart';
 
@@ -19,6 +20,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,19 +54,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SavedList()),
-                      )
-                    }
-                },
-              )
-            ],
-          ),
-          body: _movieWidget(context, String)),
-    );
-  }
+                        MaterialPageRoute(builder: (context) => SavedList()),)}},)],),
+          body: _movieWidget(context, String)),);}
+
 }
 
 Widget _movieWidget(context, title) {
+
   return Container(
       decoration: BoxDecoration(
         color: Colors.transparent,
@@ -80,11 +76,13 @@ Widget _movieWidget(context, title) {
                     fontWeight: FontWeight.w700))),
         _movieList(context),
       ]));
+
 }
 
-// Sökrutan.
 Widget searchBar(BuildContext context) {
+
   TextEditingController textEditingController = TextEditingController();
+
   return Builder(builder: (context) {
     return Container(
       padding: EdgeInsets.only(left: 10, right: 10),
@@ -120,15 +118,12 @@ Widget searchBar(BuildContext context) {
                 }),
             contentPadding: EdgeInsets.only(left: 15.0, top: 15.0),
             hintText: 'Search for movies',
-            hintStyle: TextStyle(color: Colors.white),
-          ),
-        ),
-      ),
-    );
-  });
+            hintStyle: TextStyle(color: Colors.white),),),),);});
+
 }
 
 Widget _movieList(BuildContext context) {
+
   //TODO: implement SliverAppBar
   var trendingList = Provider.of<MovieLists>(context).trendingList;
   var size = MediaQuery.of(context).size;
@@ -146,7 +141,7 @@ Widget _movieList(BuildContext context) {
                 context,
                 MaterialPageRoute(
                     builder: (BuildContext context) =>
-                        new DescriptionScreen()));
+                        new DescriptionScreen(id: trendingList[index].id)));
           },
           child: Card(
             shape:
@@ -177,69 +172,10 @@ Widget _movieList(BuildContext context) {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 5),
-                  child: Text(trendingList[index].rating.toString(),
+                  child: Text((Movie.getRating(trendingList[index].rating)).toString(),
                       style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w600)),
-                ),
-              ],
-            ),
-          ),
-        );
-      }),
-    ),
-    /*
-    child: ListView.builder( // The padding around this widget caused the gap!
-        itemCount: trendingList.length,
-        itemBuilder: (context, index) {
-          return SingleChildScrollView(
+                          color: Colors.white, fontWeight: FontWeight.w600)),),],),),);}),),);
 
-
-
-            child: Column(children: <Widget>[
-              Card(
-                  color: Colors.transparent,
-                  elevation: 0,
-                  child: FlatButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                new DescriptionScreen()),
-                      );
-                    },
-                    child: Container(
-                        height: 265,
-                        width: double.infinity,
-                        child: Column(children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              height: 190,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(ApiData
-                                              .postersUrl +
-                                          trendingList[index].posterPath))),
-                            ),
-                          ),
-                          Text(trendingList[index].title,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w800)),
-                          Text(trendingList[index].rating.toString(),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600))
-                        ])),
-                  ))
-            ]),
-          );
-        }),
-    */
-  );
 }
 
 //TODO: Extract main scaffold widget (with AppBar)

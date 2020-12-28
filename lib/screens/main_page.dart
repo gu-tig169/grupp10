@@ -112,7 +112,7 @@ Widget searchBar(BuildContext context) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SearchResult(),
+                          builder: (BuildContext context) => new SearchResult(search: textEditingController.text),
                         ));
                   }
                 }),

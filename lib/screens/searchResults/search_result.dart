@@ -4,7 +4,16 @@ import 'package:MoviePKR/util/constants.dart';
 import 'package:MoviePKR/screens/main_page.dart';
 import 'package:flutter/rendering.dart';
 
-class SearchResult extends StatelessWidget {
+class SearchResult extends StatefulWidget {
+
+  final String search;
+  SearchResult({Key key, this.search}) : super(key: key);
+
+  @override
+  _SearchResultState createState() => _SearchResultState();
+}
+
+class _SearchResultState extends State<SearchResult> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +43,7 @@ class SearchResult extends StatelessWidget {
               child: Container(
                   child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("*insert what I searched for here*",
+                      child: Text(widget.search,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,

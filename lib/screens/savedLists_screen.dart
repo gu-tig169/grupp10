@@ -1,3 +1,4 @@
+import 'package:MoviePKR/models/Movie.dart';
 import 'package:MoviePKR/models/movieList.dart';
 import 'package:MoviePKR/providers/movieLists_provider.dart';
 import 'package:MoviePKR/screens/singleList_screen.dart';
@@ -80,7 +81,9 @@ class _SavedListState extends State<SavedList> {
                                   builder: (_) => new MovieListScreen()))
                         },
                         child: Container(
-                          color: Colors.white,
+                          //William set imgae to en list
+                          child: setImageToMymovielist(
+                              snapshot.movieLists[index].movies),
                         ),
                       ),
                     ),
@@ -118,6 +121,21 @@ class _SavedListState extends State<SavedList> {
         );
       },
     );
+  }
+
+// William handle about if there is no movies in a mymovielist, thus there should be en image in lokal.
+  Widget setImageToMymovielist(List<Movie> movies) {
+    if (movies.length > 0) {
+      return Image(
+        image: NetworkImage(ApiData.postersUrl + movies[0].posterPath),
+        height: 80,
+        width: 75,
+      );
+    } else {
+      return Image.asset(
+        'assets/images/no-image.png',
+      );
+    }
   }
 
   //This widget is for FloatingActionButton

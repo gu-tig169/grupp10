@@ -26,6 +26,7 @@ class MovieList {
   }
 
   int get count => _movies.length;
+  List<Movie> get movies => _movies; //William for get image from movies
 
   factory MovieList.fromJson(Map<String, dynamic> json) {
     return MovieList.fromStorage(

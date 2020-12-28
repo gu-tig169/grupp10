@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:MoviePKR/screens/movieDescription_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:MoviePKR/models/Movie.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import '../util/constants.dart';
 
@@ -20,7 +21,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,53 +34,81 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
           resizeToAvoidBottomPadding: true,
           backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            centerTitle: true,
-            title: Text('The Movies App', textAlign: TextAlign.center),
-            actions: <Widget>[
-              PopupMenuButton<int>(
-                icon: Icon(Icons.more_vert_rounded, color: Colors.white),
-                itemBuilder: (context) => [
-                  PopupMenuItem(
-                    value: 1,
-                    child: Text('My lists'),
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                expandedHeight: 160,
+                floating: true,
+                pinned: true,
+                snap: true,
+                elevation: 50,
+                backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+                // backgroundColor: Colors.transparent,
+
+                title: Text(
+                  'The Movies App',
+                  style: TextStyle(fontSize: 26),
+                ),
+                centerTitle: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Column(
+                    children: <Widget>[
+                      SizedBox(height: 100.0),
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Container(
+                            width: double.infinity,
+                            child: Column(
+                              children: [
+                                searchBar(context),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 16.0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text('Trending',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w700)),
+                                  ),
+                                )
+                              ],
+                            )),
+                      ),
+                    ],
                   ),
-                  PopupMenuItem(value: 2, child: Text('Settings'))
+                ),
+                actions: <Widget>[
+                  PopupMenuButton<int>(
+                    icon: Icon(Icons.more_vert_rounded, color: Colors.white),
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        value: 1,
+                        child: Text('My lists'),
+                      ),
+                      PopupMenuItem(value: 2, child: Text('About'))
+                    ],
+                    onSelected: (value) => {
+                      if (value == 1)
+                        {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SavedList()),
+                          )
+                        }
+                    },
+                  )
                 ],
-                onSelected: (value) => {
-                  if (value == 1)
-                    {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SavedList()),)}},)],),
-          body: _movieWidget(context, String)),);}
-
-}
-
-Widget _movieWidget(context, title) {
-
-  return Container(
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-      ),
-      child: Column(children: <Widget>[
-        searchBar(context),
-        Container(
-            padding: EdgeInsets.all(16),
-            child: Text("Trending",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 26,
-                    fontWeight: FontWeight.w700))),
-        _movieList(context),
-      ]));
-
+              ),
+              _movieList(context)
+            ],
+          )),
+    );
+  }
 }
 
 Widget searchBar(BuildContext context) {
-
   TextEditingController textEditingController = TextEditingController();
 
   return Builder(builder: (context) {
@@ -118,23 +146,29 @@ Widget searchBar(BuildContext context) {
                 }),
             contentPadding: EdgeInsets.only(left: 15.0, top: 15.0),
             hintText: 'Search for movies',
-            hintStyle: TextStyle(color: Colors.white),),),),);});
-
+            hintStyle: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  });
 }
 
-Widget _movieList(BuildContext context) {
-
+SliverGrid _movieList(BuildContext context) {
   //TODO: implement SliverAppBar
   var trendingList = Provider.of<MovieLists>(context).trendingList;
   var size = MediaQuery.of(context).size;
-  final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
+  final double itemHeight = (size.height - kToolbarHeight) / 2;
   final double itemWidth = size.width / 2;
 
-  return Expanded(
-    child: GridView.count(
-      crossAxisCount: 2,
-      childAspectRatio: (itemWidth / itemHeight),
-      children: List.generate(trendingList.length, (index) {
+  return SliverGrid(
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 200.0,
+        mainAxisSpacing: 10.0,
+        crossAxisSpacing: 10.0,
+        childAspectRatio: (itemWidth / itemHeight),
+      ),
+      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
         return InkWell(
           onTap: () {
             Navigator.push(
@@ -160,24 +194,43 @@ Widget _movieList(BuildContext context) {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(trendingList[index].title,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800)),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(trendingList[index].title,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800)),
+                    ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 5),
-                  child: Text((Movie.getRating(trendingList[index].rating)).toString(),
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w600)),),],),),);}),),);
-
+                  child:
+                      _starRating(Movie.getRating(trendingList[index].rating)),
+                ),
+              ],
+            ),
+          ),
+        );
+      }, childCount: trendingList.length));
 }
 
-//TODO: Extract main scaffold widget (with AppBar)
-//TODO: Fix padding under ListView
-//TODO: Implement grid view above card to show more films by raw.
+Widget _starRating(double rating) {
+  return SmoothStarRating(
+    size: 20,
+    filledIconData: Icons.star,
+    isReadOnly: true,
+    color: Colors.orange,
+    borderColor: Colors.orange,
+    halfFilledIconData: Icons.star_half,
+    defaultIconData: Icons.star_border,
+    starCount: 5,
+    allowHalfRating: true,
+    spacing: 2.0,
+    rating: rating,
+  );
+}

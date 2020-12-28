@@ -4,6 +4,7 @@ import 'package:MoviePKR/screens/main_page.dart';
 import 'package:flutter/rendering.dart';
 import 'package:MoviePKR/providers/movieLists_provider.dart';
 import 'package:MoviePKR/models/Movie.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import '../movieDescription_screen.dart';
 
@@ -54,6 +55,115 @@ class _SearchResultState extends State<SearchResult> {
 
   }
 
+
+
+  Widget _searchedView() {
+    return Expanded(
+      child: ListView.builder(
+        padding: EdgeInsets.all(10),
+        itemCount: movieList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                      new DescriptionScreen(id: movieList[index].id)));
+            },
+            child: Card(
+              color: Colors.transparent,
+              elevation: 0.8,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
+                child: Container(
+                    height: 125,
+                    width: double.infinity,
+                    color: Colors.transparent,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        _imageWidget(index),
+                        Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    movieList[index].title,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16),
+                                  ),
+                                  SizedBox(height: 6),
+                                  SmoothStarRating(
+                                    size: 15,
+                                    filledIconData: Icons.star,
+                                    isReadOnly: true,
+                                    color: Colors.orange,
+                                    borderColor: Colors.orange,
+                                    halfFilledIconData: Icons.star_half,
+                                    defaultIconData: Icons.star_border,
+                                    starCount: 5,
+                                    allowHalfRating: true,
+                                    spacing: 2.0,
+                                    rating: Movie.getRating(movieList[index].rating.toDouble()),
+                                  ),
+                                  SizedBox(height: 6),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        movieList[index].releaseDate,
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                      SizedBox(width: 20),
+                                      Text(
+                                        "genre...",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+
+
+                                ],
+                              ),
+                            )),
+                      ],
+                    )),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // Den här koden använder avengers: endgame som bild om det blir bild-error...
+  Widget _imageWidget(int index) {
+    try {
+      return Container(
+        alignment: Alignment.centerLeft,
+        width: 90,
+        height: double.infinity,
+        child: Image(
+            image: NetworkImage( // Något går snett här ibland!
+                ApiData.postersUrl + movieList[index].posterPath)),
+      );
+    } catch(exception) {
+      return Container(
+        alignment: Alignment.centerLeft,
+        width: 90,
+        height: double.infinity,
+        child: Image(
+            image: NetworkImage(
+                "https://image.tmdb.org/t/p/original/or06FN3Dka5tukK1e9sl16pB3iy.jpg"))
+      );
+    }
+  }
+
   Widget _aWidget() {
     return FutureBuilder<List<Movie>>(
         future: getMovieList(widget.search),
@@ -74,7 +184,7 @@ class _SearchResultState extends State<SearchResult> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500)))),
               ),
-              _movieList(context),
+              _searchedView(),
             ]);
           } else {
             return Center(child: CircularProgressIndicator());

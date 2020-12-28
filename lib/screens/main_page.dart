@@ -23,6 +23,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    print('kToolbarHeight: ' + kToolbarHeight.toString());
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -37,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
           body: CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
-                expandedHeight: 160,
+                expandedHeight: 180,
                 floating: true,
                 pinned: true,
                 snap: true,
@@ -52,8 +54,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 centerTitle: true,
                 flexibleSpace: FlexibleSpaceBar(
                   background: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(height: 100.0),
+                      SizedBox(height: 80.0),
                       Padding(
                         padding: const EdgeInsets.all(5),
                         child: Container(

@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MovieLists(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'MoviePKR',
         theme: ThemeData(
           primarySwatch: Colors.blue,

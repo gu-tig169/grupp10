@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SavedList extends StatefulWidget {
+
   @override
   _SavedListState createState() => _SavedListState();
 }

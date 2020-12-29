@@ -16,7 +16,7 @@ class MovieList {
         description: 'TestMovieDescription TestMovie TestMovie TestMovie',
         genres: [1, 2, 3, 4],
         posterPath: '/6sG0kbEvAi3RRLcGGU5h8l3qAPa.jpg',
-        rating: 8.0,
+        rating: 8,
         releaseDate: '2020-12-20'));
   }
 

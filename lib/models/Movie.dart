@@ -6,7 +6,7 @@ import 'dart:math';
 class Movie {
   int id;
   String title;
-  double rating;
+  dynamic rating;
   List<dynamic> genres;
   // String language;
   String releaseDate;
@@ -24,6 +24,8 @@ class Movie {
       this.posterPath,
         this.runTime});
 
+
+
   //OPTIONAL
   String imdbId;
 
@@ -37,6 +39,18 @@ class Movie {
         description: json['overview'],
         posterPath: json['poster_path'],
         runTime: json['runtime']
+    );
+  }
+
+  factory Movie.fromJsonNoRuntime(Map<String, dynamic> json) {
+    return Movie(
+        id: json['id'],
+        title: json['original_title'],
+        rating: json['vote_average'],
+        genres: json['genre_ids'],
+        releaseDate: json['release_date'],
+        description: json['overview'],
+        posterPath: json['poster_path']
     );
   }
 

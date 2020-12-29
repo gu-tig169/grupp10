@@ -15,29 +15,16 @@ Widget searchBar(BuildContext context) {
         child: TextFormField(
           style: TextStyle(color: Colors.white),
           controller: textEditingController,
+          onFieldSubmitted: (value) {
+            _submitSearch(context, value);
+          },
           decoration: InputDecoration(
             border: InputBorder.none,
             prefixIcon: IconButton(
                 icon: Icon(Icons.search),
                 color: Colors.white,
                 onPressed: () {
-                  if (textEditingController.text.isEmpty) {
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                        backgroundColor:
-                            AppColors.secondaryColor.withOpacity(0.8),
-                        content: Text(
-                          'Search text is empty',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 15),
-                        )));
-                  } else {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => new SearchResult(
-                              search: textEditingController.text),
-                        ));
-                  }
+                  _submitSearch(context, textEditingController.text);
                 }),
             contentPadding: EdgeInsets.only(left: 15.0, top: 15.0),
             hintText: 'Search for movies',
@@ -47,4 +34,22 @@ Widget searchBar(BuildContext context) {
       ),
     );
   });
+}
+
+void _submitSearch(BuildContext context, String input) {
+  if (input.isEmpty) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+        backgroundColor: AppColors.secondaryColor.withOpacity(0.8),
+        content: Text(
+          'Search text is empty',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 15),
+        )));
+  } else {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => new SearchResult(search: input),
+        ));
+  }
 }

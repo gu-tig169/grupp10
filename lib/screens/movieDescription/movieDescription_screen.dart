@@ -81,7 +81,10 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
             offset: Offset(5, 7))
       ]),
       height: 300,
-      child: Image(image: NetworkImage(ApiData.postersUrl + movie.posterPath)),
+      child: Image(
+          image: movie.posterPath != null
+              ? NetworkImage(ApiData.postersUrl + movie.posterPath)
+              : AssetImage('assets/images/image_NA.png')),
     );
   }
 

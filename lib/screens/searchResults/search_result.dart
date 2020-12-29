@@ -1,15 +1,13 @@
+import 'package:MoviePKR/screens/mainPage/widgets/SearchBar.dart';
+import 'package:MoviePKR/screens/movieDescription/movieDescription_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:MoviePKR/util/constants.dart';
-import 'package:MoviePKR/screens/main_page.dart';
 import 'package:flutter/rendering.dart';
 import 'package:MoviePKR/providers/movieLists_provider.dart';
 import 'package:MoviePKR/models/Movie.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-import '../movieDescription_screen.dart';
-
 class SearchResult extends StatefulWidget {
-
   final String search;
   SearchResult({Key key, this.search}) : super(key: key);
 
@@ -18,7 +16,6 @@ class SearchResult extends StatefulWidget {
 }
 
 class _SearchResultState extends State<SearchResult> {
-
   List<Movie> movieList;
   Future<List<Movie>> getMovieList(String query) async {
     movieList = await MovieLists.fetchMovies(query);
@@ -50,12 +47,7 @@ class _SearchResultState extends State<SearchResult> {
           ),
           body: _aWidget(),
         ));
-
-
-
   }
-
-
 
   Widget _searchedView() {
     return Expanded(
@@ -69,7 +61,7 @@ class _SearchResultState extends State<SearchResult> {
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext context) =>
-                      new DescriptionScreen(id: movieList[index].id)));
+                          new DescriptionScreen(id: movieList[index].id)));
             },
             child: Card(
               color: Colors.transparent,
@@ -86,51 +78,52 @@ class _SearchResultState extends State<SearchResult> {
                         _imageWidget(index),
                         Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
+                          padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                movieList[index].title,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
+                              SizedBox(height: 6),
+                              SmoothStarRating(
+                                size: 15,
+                                filledIconData: Icons.star,
+                                isReadOnly: true,
+                                color: Colors.orange,
+                                borderColor: Colors.orange,
+                                halfFilledIconData: Icons.star_half,
+                                defaultIconData: Icons.star_border,
+                                starCount: 5,
+                                allowHalfRating: true,
+                                spacing: 2.0,
+                                rating: Movie.getRating(
+                                    movieList[index].rating.toDouble()),
+                              ),
+                              SizedBox(height: 6),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
                                   Text(
-                                    movieList[index].title,
+                                    movieList[index].releaseDate != null
+                                        ? movieList[index].releaseDate
+                                        : "N/A",
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 16),
+                                        color: Colors.white, fontSize: 12),
                                   ),
-                                  SizedBox(height: 6),
-                                  SmoothStarRating(
-                                    size: 15,
-                                    filledIconData: Icons.star,
-                                    isReadOnly: true,
-                                    color: Colors.orange,
-                                    borderColor: Colors.orange,
-                                    halfFilledIconData: Icons.star_half,
-                                    defaultIconData: Icons.star_border,
-                                    starCount: 5,
-                                    allowHalfRating: true,
-                                    spacing: 2.0,
-                                    rating: Movie.getRating(movieList[index].rating.toDouble()),
+                                  SizedBox(width: 20),
+                                  Text(
+                                    "genre...",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
                                   ),
-                                  SizedBox(height: 6),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        movieList[index].releaseDate,
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 12),
-                                      ),
-                                      SizedBox(width: 20),
-                                      Text(
-                                        "genre...",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-
-
                                 ],
                               ),
-                            )),
+                            ],
+                          ),
+                        )),
                       ],
                     )),
               ),
@@ -148,19 +141,15 @@ class _SearchResultState extends State<SearchResult> {
         alignment: Alignment.centerLeft,
         width: 90,
         height: double.infinity,
-        child: Image(
-            image: NetworkImage( // Något går snett här ibland!
-                ApiData.postersUrl + movieList[index].posterPath)),
+        child: Image(image: NetworkImage(// Något går snett här ibland!
+            ApiData.postersUrl + movieList[index].posterPath)),
       );
-    } catch(exception) {
+    } catch (exception) {
       return Container(
-        alignment: Alignment.centerLeft,
-        width: 90,
-        height: double.infinity,
-        child: Image(
-            image: NetworkImage(
-                "https://image.tmdb.org/t/p/original/or06FN3Dka5tukK1e9sl16pB3iy.jpg"))
-      );
+          alignment: Alignment.centerLeft,
+          width: 90,
+          height: double.infinity,
+          child: Image(image: AssetImage('assets/images/image_NA.png')));
     }
   }
 
@@ -178,7 +167,8 @@ class _SearchResultState extends State<SearchResult> {
                 child: Container(
                     child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text("Showing results for: '" + widget.search + "'",
+                        child: Text(
+                            "Showing results for: '" + widget.search + "'",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -189,13 +179,10 @@ class _SearchResultState extends State<SearchResult> {
           } else {
             return Center(child: CircularProgressIndicator());
           }
-        }
-    );
+        });
   }
 
-
   Widget _movieList(BuildContext context) {
-
     var size = MediaQuery.of(context).size;
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
@@ -211,17 +198,16 @@ class _SearchResultState extends State<SearchResult> {
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext context) =>
-                      new DescriptionScreen(id: movieList[index].id)));
+                          new DescriptionScreen(id: movieList[index].id)));
             },
             child: Card(
-              shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
               elevation: 1,
               color: Colors.transparent,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -239,10 +225,14 @@ class _SearchResultState extends State<SearchResult> {
                     padding: const EdgeInsets.only(bottom: 5),
                     child: Text(movieList[index].rating.toString(),
                         style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w600)),),],),),);}),),);
-
+                            color: Colors.white, fontWeight: FontWeight.w600)),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }),
+      ),
+    );
   }
-
-
-
 }

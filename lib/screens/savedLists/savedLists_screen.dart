@@ -1,6 +1,6 @@
 import 'package:MoviePKR/models/movieList.dart';
 import 'package:MoviePKR/providers/movieLists_provider.dart';
-import 'package:MoviePKR/screens/singleList_screen.dart';
+import 'package:MoviePKR/screens/singleList/singleList_screen.dart';
 import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

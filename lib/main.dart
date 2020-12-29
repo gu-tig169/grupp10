@@ -1,5 +1,5 @@
 import 'package:MoviePKR/providers/movieLists_provider.dart';
-import 'package:MoviePKR/screens/splash_screen.dart';
+import 'package:MoviePKR/screens/splashScreen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

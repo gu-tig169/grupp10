@@ -1,7 +1,7 @@
+import 'package:MoviePKR/screens/mainPage/widgets/SearchBar.dart';
 import 'package:MoviePKR/widgets/movieList_listview.dart';
 import 'package:flutter/material.dart';
 import 'package:MoviePKR/util/constants.dart';
-import 'package:MoviePKR/screens/main_page.dart';
 import 'package:flutter/rendering.dart';
 
 class SearchResult extends StatelessWidget {

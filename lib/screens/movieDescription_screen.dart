@@ -1,7 +1,7 @@
 import 'package:MoviePKR/util/constants.dart';
+import 'package:MoviePKR/widgets/smoothStarRating.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_dialog/rating_dialog.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:MoviePKR/providers/movieLists_provider.dart';
 import 'package:MoviePKR/models/Movie.dart';
 
@@ -103,7 +103,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                         fontWeight: FontWeight.bold,
                         fontSize: 17)),
                 Container(height: 5),
-                _starRating(),
+                starRating(Movie.getRating(movie.rating)),
                 Container(height: 5),
                 Row(
                   children: [
@@ -135,32 +135,16 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     );
   }
 
-  Widget _starRating() {
-    return SmoothStarRating(
-      size: 20,
-      filledIconData: Icons.star,
-      isReadOnly: true,
-      color: Colors.orange,
-      borderColor: Colors.orange,
-      halfFilledIconData: Icons.star_half,
-      defaultIconData: Icons.star_border,
-      starCount: 5,
-      allowHalfRating: true,
-      spacing: 2.0,
-      rating: Movie.getRating(movie.rating),
-    );
-  }
-
   Widget _buttons() {
     return Padding(
       padding: EdgeInsets.all(5),
       child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
         Container(
-          // height: 40,
-          // width: 100,
+            // height: 40,
+            // width: 100,
             child: FloatingActionButton.extended(
                 heroTag:
-                "btn1", // Herotag måste finnas (för att vyn ska fungera på min dator).
+                    "btn1", // Herotag måste finnas (för att vyn ska fungera på min dator).
                 label: Text(
                   'ADD TO LIST',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
@@ -182,7 +166,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
             width: 100,
             child: FloatingActionButton.extended(
                 heroTag:
-                "btn2", // Herotag måste finnas (för att vyn ska fungera på min dator).
+                    "btn2", // Herotag måste finnas (för att vyn ska fungera på min dator).
                 label: Text(
                   'RATE',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
@@ -214,7 +198,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                       headline6: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.w300)),
                   dialogBackgroundColor:
-                  Color.fromARGB(225, 18, 18, 30).withOpacity(0.8)),
+                      Color.fromARGB(225, 18, 18, 30).withOpacity(0.8)),
               child: RatingDialog(
                 icon: Image.asset('assets/images/icon.png', height: 40),
                 title: 'Movie review',

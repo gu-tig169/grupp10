@@ -3,11 +3,11 @@ import 'package:MoviePKR/providers/movieLists_provider.dart';
 import 'package:MoviePKR/screens/savedLists_screen.dart';
 import 'package:MoviePKR/screens/searchResults/search_result.dart';
 import 'package:MoviePKR/util/constants.dart';
+import 'package:MoviePKR/widgets/smoothStarRating.dart';
 import 'package:flutter/material.dart';
 import 'package:MoviePKR/screens/movieDescription_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:MoviePKR/models/Movie.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import '../util/constants.dart';
 
@@ -215,27 +215,11 @@ SliverGrid _movieList(BuildContext context) {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 5),
                   child:
-                      _starRating(Movie.getRating(trendingList[index].rating)),
+                      starRating(Movie.getRating(trendingList[index].rating)),
                 ),
               ],
             ),
           ),
         );
       }, childCount: trendingList.length));
-}
-
-Widget _starRating(double rating) {
-  return SmoothStarRating(
-    size: 20,
-    filledIconData: Icons.star,
-    isReadOnly: true,
-    color: Colors.orange,
-    borderColor: Colors.orange,
-    halfFilledIconData: Icons.star_half,
-    defaultIconData: Icons.star_border,
-    starCount: 5,
-    allowHalfRating: true,
-    spacing: 2.0,
-    rating: rating,
-  );
 }

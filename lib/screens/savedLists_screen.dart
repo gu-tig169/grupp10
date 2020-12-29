@@ -126,11 +126,17 @@ class _SavedListState extends State<SavedList> {
 // William handle about if there is no movies in a mymovielist, thus there should be en image in lokal.
   Widget setImageToMymovielist(List<Movie> movies) {
     if (movies.length > 0) {
-      return Image(
-        image: NetworkImage(ApiData.postersUrl + movies[0].posterPath),
-        height: 80,
-        width: 75,
-      );
+      if (movies[0].posterPath == null) {
+        return Image.asset(
+          'assets/images/no-image.png',
+        );
+      } else {
+        return Image(
+          image: NetworkImage(ApiData.postersUrl + movies[0].posterPath),
+          height: 80,
+          width: 75,
+        );
+      }
     } else {
       return Image.asset(
         'assets/images/no-image.png',

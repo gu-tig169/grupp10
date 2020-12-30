@@ -13,7 +13,6 @@ class MovieLists with ChangeNotifier {
   List<MovieList> _myLists = [];
   List<Movie> _trendingMovies = [];
 
-
   List<MovieList> get movieLists => [..._myLists];
   List<Movie> get trendingList => [..._trendingMovies];
   //List<Movie> get searchedList => [..._searchedMovies];
@@ -37,8 +36,9 @@ class MovieLists with ChangeNotifier {
 
   static Future<List<Movie>> fetchMovies(String keyword) async {
     final response = await http.get(
-        'https://api.themoviedb.org/3/search/movie?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language=en-US&query='
-        + keyword + '&page=1&include_adult=false');
+        'https://api.themoviedb.org/3/search/movie?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language=en-US&query=' +
+            keyword +
+            '&page=1&include_adult=false');
     List<Movie> searchedMovies = [];
     var data = json.decode(response.body)['results'];
     for (var item in data) {
@@ -62,9 +62,9 @@ class MovieLists with ChangeNotifier {
   }
 
   static Future<Movie> fetchMovieByID(int id) async {
-    final response = await http.get(
-        "https://api.themoviedb.org/3/movie/" + id.toString()
-            + "?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language-en-US");
+    final response = await http.get("https://api.themoviedb.org/3/movie/" +
+        id.toString() +
+        "?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language-en-US");
     return Movie.fromJson(json.decode(response.body));
   }
 
@@ -81,7 +81,13 @@ class MovieLists with ChangeNotifier {
   }
 
   fetchSavedListsFromSF() async {
-    var list = await _getList();
-    if (list != null) _myLists = MovieList.decode(list);
+    String list = await _getList();
+    if (list != null && list.isNotEmpty) {
+      try {
+        _myLists = MovieList.decode(list);
+      } catch (error) {
+        throw (error);
+      }
+    }
   }
 }

@@ -22,9 +22,7 @@ class Movie {
       this.releaseDate,
       this.description,
       this.posterPath,
-        this.runTime});
-
-
+      this.runTime});
 
   //OPTIONAL
   String imdbId;
@@ -38,8 +36,7 @@ class Movie {
         releaseDate: json['release_date'],
         description: json['overview'],
         posterPath: json['poster_path'],
-        runTime: json['runtime']
-    );
+        runTime: json['runtime']);
   }
 
   factory Movie.fromJsonNoRuntime(Map<String, dynamic> json) {
@@ -50,8 +47,7 @@ class Movie {
         genres: json['genre_ids'],
         releaseDate: json['release_date'],
         description: json['overview'],
-        posterPath: json['poster_path']
-    );
+        posterPath: json['poster_path']);
   }
 
   static Map<String, dynamic> toMap(Movie movie) => {
@@ -79,10 +75,19 @@ class Movie {
             .toList(),
       );
 
-  static List<Movie> decode(String movies) =>
-      (json.decode(movies) as List<dynamic>)
-          .map<Movie>((m) => Movie.fromJson(m))
-          .toList();
+  static List<Movie> decode(String movies) {
+    if (movies != null && movies.isNotEmpty) {
+      try {
+        return (json.decode(movies) as List<dynamic>)
+            .map<Movie>((m) => Movie.fromJson(m))
+            .toList();
+      } catch (error) {
+        return [];
+      }
+    } else {
+      return [];
+    }
+  }
 }
 
 //Todo: do we need runTime?

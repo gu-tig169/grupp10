@@ -35,9 +35,8 @@ class MovieList {
 
   static Map<String, dynamic> toMap(MovieList movieList) => {
         'listTitle': movieList.listTitle,
-        'movies': movieList._movies.length > 0
-            ? Movie.encode(movieList._movies)
-            : null
+        'movies':
+            movieList._movies.length > 0 ? Movie.encode(movieList._movies) : ""
       };
 
   static String encode(List<MovieList> lists) => json.encode(

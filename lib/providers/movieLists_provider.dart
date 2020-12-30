@@ -13,8 +13,10 @@ class MovieLists with ChangeNotifier {
   List<MovieList> _myLists = [];
   List<Movie> _trendingMovies = [];
 
+
   List<MovieList> get movieLists => [..._myLists];
   List<Movie> get trendingList => [..._trendingMovies];
+  //List<Movie> get searchedList => [..._searchedMovies];
 
   void addNewList(MovieList newList) {
     _myLists.add(newList);
@@ -31,6 +33,18 @@ class MovieLists with ChangeNotifier {
 
   MovieList getListAtIndex(int index) {
     return _myLists[index];
+  }
+
+  static Future<List<Movie>> fetchMovies(String keyword) async {
+    final response = await http.get(
+        'https://api.themoviedb.org/3/search/movie?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language=en-US&query='
+        + keyword + '&page=1&include_adult=false');
+    List<Movie> searchedMovies = [];
+    var data = json.decode(response.body)['results'];
+    for (var item in data) {
+      searchedMovies.add(Movie.fromJsonNoRuntime(item));
+    }
+    return searchedMovies;
   }
 
   Future<void> fetchTrendingList() async {

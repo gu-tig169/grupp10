@@ -1,6 +1,7 @@
 import 'package:MoviePKR/util/constants.dart';
 import 'package:MoviePKR/widgets/smoothStarRating.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:MoviePKR/providers/movieLists_provider.dart';
 import 'package:MoviePKR/models/Movie.dart';
@@ -159,10 +160,15 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                     side: BorderSide(color: AppColors.thirdColor, width: 3)),
-                onPressed: (
-                    //Här kan man antingen direkt lägga till filmen i listan eller ha en dialog som frågar
-                    //en till gång om man vill lägga till filmen på sin lista samt i vilken lista osv.
-                    ) {})),
+                onPressed: () {
+                  setState(() {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return setupAlertDialoadContainer();
+                        });
+                  });
+                })),
         Container(width: 10),
         Container(
             height: 40,
@@ -213,6 +219,130 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                 },
               ));
         });
+  }
+
+  Widget setupAlertDialoadContainer() {
+    var list = Provider.of<MovieLists>(context, listen: false).movieLists;
+    return Center(
+      //AlertDialog needs to be wrapped in a Stateful widget so when a user changes the value in the dropdown, changes shall be visible to user.
+      child: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          backgroundColor: Color.fromARGB(225, 18, 18, 30).withOpacity(0.95),
+          title: Text(
+            'Add to list',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white),
+          ),
+          content: Builder(
+            builder: (context) {
+              var height = MediaQuery.of(context).size.height;
+              var width = MediaQuery.of(context).size.width;
+
+              return Container(
+                height: height - 0,
+                width: width - 0,
+                color: Colors.transparent,
+                child: ListView.builder(
+                    itemCount: list.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          bool result =
+                              Provider.of<MovieLists>(context, listen: false)
+                                  .addFilmToList(movie, index);
+                          result
+                              ? showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    Future.delayed(Duration(seconds: 1), () {
+                                      Navigator.of(context, rootNavigator: true)
+                                          .pop(true);
+                                    });
+                                    return AlertDialog(
+                                      title:
+                                          Text('Movie was added successfully'),
+                                    );
+                                  })
+                              : showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title:
+                                          Text('Movie has already been added'),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('OK'))
+                                      ],
+                                    );
+                                  },
+                                );
+                          //   Navigator.of(context, rootNavigator: true).pop();
+                        },
+                        child: Card(
+                          color: Colors.transparent,
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Container(
+                                height: 40,
+                                width: double.infinity,
+                                color: Colors.transparent,
+                                child: Row(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: <Widget>[
+                                    Expanded(
+                                        child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Flexible(
+                                            child: Text(
+                                          list[index].listTitle,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16),
+                                          textAlign: TextAlign.center,
+                                        ))
+                                      ],
+                                    ))
+                                  ],
+                                )),
+                          ),
+                        ),
+                      );
+                    }),
+              );
+            },
+          ),
+          actions: <Widget>[
+            Column(
+              children: [
+                Container(height: 5),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  padding: EdgeInsets.only(right: 15),
+                  height: 30,
+                  width: 90,
+                  child: FloatingActionButton.extended(
+                      backgroundColor: AppColors.thirdColor,
+                      label: Text('CANCEL', style: TextStyle(fontSize: 12)),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      }),
+                ),
+                Container(height: 20),
+              ],
+            )
+          ],
+        );
+      }),
+    );
   }
 }
 //TODO: Add function to add to list button (pop up to show saved lists??)

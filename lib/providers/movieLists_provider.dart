@@ -30,6 +30,18 @@ class MovieLists with ChangeNotifier {
     notifyListeners();
   }
 
+  bool addFilmToList(Movie movie, int index) {
+    var contain = movieLists[index].movies.where((m) => m.id == movie.id);
+    if (contain.isEmpty) {
+      movieLists[index].movies.add(movie);
+      saveToSF();
+      notifyListeners();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   MovieList getListAtIndex(int index) {
     return _myLists[index];
   }

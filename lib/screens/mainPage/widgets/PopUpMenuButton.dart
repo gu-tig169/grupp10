@@ -9,13 +9,19 @@ class PopUpMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<int>(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      color: Color.fromRGBO(58, 66, 86, 1.0),
       icon: Icon(Icons.more_vert_rounded, color: Colors.white),
       itemBuilder: (context) => [
         PopupMenuItem(
+          textStyle: TextStyle(color: Colors.white, fontSize: 14),
           value: 1,
-          child: Text('My lists'),
+          child: Text('My lists', textAlign: TextAlign.center),
         ),
-        PopupMenuItem(value: 2, child: Text('About'))
+        PopupMenuItem(
+            textStyle: TextStyle(color: Colors.white, fontSize: 14),
+            value: 2,
+            child: Text('About', textAlign: TextAlign.center))
       ],
       onSelected: (value) => {
         if (value == 1)

@@ -21,6 +21,7 @@ class SliverBar extends StatelessWidget {
       title: Text(
         'The Movies App',
         style: TextStyle(fontSize: 26),
+        textAlign: TextAlign.center,
       ),
       centerTitle: true,
       flexibleSpace: FlexibleSpaceBar(
@@ -30,7 +31,7 @@ class SliverBar extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: 80.0),
             Padding(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(7),
               child: Container(
                   width: double.infinity,
                   child: Column(
@@ -39,10 +40,10 @@ class SliverBar extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 16.0),
                         child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text('Trending',
+                          alignment: Alignment.center,
+                          child: Text('Trending movies',
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.white.withOpacity(0.7),
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700)),
                         ),

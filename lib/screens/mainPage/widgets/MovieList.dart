@@ -30,8 +30,10 @@ SliverGrid movieList(BuildContext context) {
                         new DescriptionScreen(id: trendingList[index].id)));
           },
           child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            margin: EdgeInsets.all(5.0),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+                side: BorderSide(color: Colors.black.withOpacity(0.2))),
             elevation: 1,
             color: Colors.transparent,
             child: Column(
@@ -40,12 +42,15 @@ SliverGrid movieList(BuildContext context) {
                 ClipRRect(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
                   child: Image(
+                      width: 190,
+                      height: 254,
+                      fit: BoxFit.fill,
                       image: NetworkImage(
                           ApiData.postersUrl + trendingList[index].posterPath)),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(2.0),
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(trendingList[index].title,
@@ -54,16 +59,17 @@ SliverGrid movieList(BuildContext context) {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w800)),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600)),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child:
-                      starRating(Movie.getRating(trendingList[index].rating)),
-                ),
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: Container(
+                      child: starRating(
+                          Movie.getRating(trendingList[index].rating)),
+                    )),
               ],
             ),
           ),

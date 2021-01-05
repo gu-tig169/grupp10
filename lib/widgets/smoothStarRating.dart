@@ -3,7 +3,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 Widget starRating(double rating) {
   return SmoothStarRating(
-    size: 20,
+    size: 16,
     filledIconData: Icons.star,
     isReadOnly: true,
     color: Colors.orange,

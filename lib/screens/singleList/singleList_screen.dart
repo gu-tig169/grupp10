@@ -2,12 +2,23 @@ import 'package:MoviePKR/util/constants.dart';
 import 'package:MoviePKR/widgets/movieList_listview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:MoviePKR/models/Movie.dart';
+import 'package:MoviePKR/widgets/detailedMovieList.dart';
 
 class MovieListScreen extends StatefulWidget {
-  State<StatefulWidget> createState() => new _MovieListScreenState();
+  final String listTitleInMylist;
+  final List<Movie> moviesInMylist;
+  MovieListScreen(this.listTitleInMylist, this.moviesInMylist);
+
+  State<StatefulWidget> createState() =>
+      new _MovieListScreenState(listTitleInMylist, moviesInMylist);
 }
 
 class _MovieListScreenState extends State<MovieListScreen> {
+  final String titleInMyMovielist;
+  final List<Movie> moviesInMyMovielist;
+  _MovieListScreenState(this.titleInMyMovielist, this.moviesInMyMovielist);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,9 +34,9 @@ class _MovieListScreenState extends State<MovieListScreen> {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
-            title: Text('The name of the list', textAlign: TextAlign.center),
+            title: Text(titleInMyMovielist, textAlign: TextAlign.center),
           ),
-          body: MovieListWidget(),
+          body: detailedMovieList(moviesInMyMovielist, 'mylist'),
         ));
   }
 }

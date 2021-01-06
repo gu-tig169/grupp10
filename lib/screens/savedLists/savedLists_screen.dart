@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SavedList extends StatefulWidget {
-
   @override
   _SavedListState createState() => _SavedListState();
 }
@@ -79,7 +78,9 @@ class _SavedListState extends State<SavedList> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) => new MovieListScreen()))
+                                  builder: (context) => MovieListScreen(
+                                      snapshot.movieLists[index].listTitle,
+                                      snapshot.movieLists[index].movies)))
                         },
                         child: Container(
                           //William set imgae to en list

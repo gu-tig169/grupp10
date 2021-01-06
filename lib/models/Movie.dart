@@ -39,6 +39,19 @@ class Movie {
         runTime: json['runtime']);
   }
 
+  //William for genres
+  factory Movie.fromJsonGenres(Map<String, dynamic> json) {
+    return Movie(
+        id: json['id'],
+        title: json['original_title'],
+        rating: json['vote_average'],
+        genres: json['genres'], //William for genresList
+        releaseDate: json['release_date'],
+        description: json['overview'],
+        posterPath: json['poster_path'],
+        runTime: json['runtime']);
+  }
+
   factory Movie.fromJsonNoRuntime(Map<String, dynamic> json) {
     return Movie(
         id: json['id'],

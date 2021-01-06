@@ -5,6 +5,7 @@ import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/rendering.dart';
 import 'package:MoviePKR/providers/movieLists_provider.dart';
 import 'package:MoviePKR/models/Movie.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class SearchResult extends StatefulWidget {
@@ -69,7 +70,7 @@ class _SearchResultState extends State<SearchResult> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
                 child: Container(
-                    height: 125,
+                    height: 144,
                     width: double.infinity,
                     color: Colors.transparent,
                     child: Row(
@@ -103,23 +104,18 @@ class _SearchResultState extends State<SearchResult> {
                                     movieList[index].rating.toDouble()),
                               ),
                               SizedBox(height: 6),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    movieList[index].releaseDate != null
-                                        ? movieList[index].releaseDate
-                                        : "N/A",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 12),
-                                  ),
-                                  SizedBox(width: 20),
-                                  Text(
-                                    "genre...",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 12),
-                                  ),
-                                ],
+                              Text(
+                                movieList[index].releaseDate != null
+                                    ? movieList[index].releaseDate
+                                    : "N/A",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
+                              ),
+                              SizedBox(height: 6),
+                              Text(
+                                _getGenreList(movieList[index]),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
                               ),
                             ],
                           ),
@@ -132,6 +128,19 @@ class _SearchResultState extends State<SearchResult> {
         },
       ),
     );
+  }
+
+  String _getGenreList(Movie movie) {
+    String genreList = "";
+    int count = 0;
+    for(var genre in movie.genres) {
+      if(count < 3) {
+        genreList += Provider.of<MovieLists>(context, listen: false).getGenre(genre) + " | ";
+        count ++;
+      }
+    }
+    if(genreList.length > 3) genreList = genreList.substring(0, genreList.length - 3);
+    return genreList;
   }
 
   // Den här koden använder avengers: endgame som bild om det blir bild-error...

@@ -44,35 +44,35 @@ class _SearchResultState extends State<SearchResult> {
             centerTitle: true,
           ),
           body: FutureBuilder<List<Movie>>(
-        future: getMovieList(widget.search),
-        // ignore: missing_return
-        builder: (context, AsyncSnapshot<List<Movie>> snapshot) {
-          if (snapshot.hasData) {
-            return Column(children: <Widget>[
-              searchBar(context),
-              Padding(
-                padding: EdgeInsets.fromLTRB(8, 16, 8, 8),
-                child: Container(
-                    child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                            "Showing results for: '" + widget.search + "'",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500)))),
-              ),
-              detailedMovieList(movieList),
-            ]);
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        }),
+              future: getMovieList(widget.search),
+              // ignore: missing_return
+              builder: (context, AsyncSnapshot<List<Movie>> snapshot) {
+                if (snapshot.hasData) {
+                  return Column(children: <Widget>[
+                    searchBar(context),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(8, 16, 8, 8),
+                      child: Container(
+                          child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                  "Showing results for: '" +
+                                      widget.search +
+                                      "'",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500)))),
+                    ),
+                    //detailedMovieList(movieList),
+                    Expanded(
+                        child: detailedMovieList(movieList,
+                            'serachList')), //William update for double using
+                  ]);
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              }),
         ));
   }
-
-
-
-
-
 }

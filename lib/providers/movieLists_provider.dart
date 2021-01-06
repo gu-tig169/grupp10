@@ -54,22 +54,28 @@ class MovieLists with ChangeNotifier {
     return genre;
   }
 
-  String getGenreList(Movie movie) {
+  String getGenreList(Movie movie, String typeOfList) {
     String genreList = "";
     int count = 0;
-    for(var genre in movie.genres) {
-      if(count < 3) {
-        genreList += getGenre(genre) + " | ";
-        count ++;
+    for (var genre in movie.genres) {
+      if (count < 3) {
+        if (typeOfList == 'serachList') {
+          //William for diffrent list(serach list or movielist in mylist)
+          genreList += getGenre(genre) + " | ";
+        } else {
+          genreList += getGenre(genre['id']) + " | ";
+        }
+        count++;
       }
     }
-    if(genreList.length > 3) genreList = genreList.substring(0, genreList.length - 3);
+    if (genreList.length > 3)
+      genreList = genreList.substring(0, genreList.length - 3);
     return genreList;
   }
 
   Future<void> fetchGenres() async {
     final response = await http.get(
-      "https://api.themoviedb.org/3/genre/movie/list?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language=en-US");
+        "https://api.themoviedb.org/3/genre/movie/list?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language=en-US");
     var data = json.decode(response.body)['genres'];
     print(data);
     for (var item in data) {
@@ -109,7 +115,8 @@ class MovieLists with ChangeNotifier {
     final response = await http.get("https://api.themoviedb.org/3/movie/" +
         id.toString() +
         "?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language-en-US");
-    return Movie.fromJson(json.decode(response.body));
+    return Movie.fromJsonGenres(
+        json.decode(response.body)); //update for get genres
   }
 
   Future<void> saveToSF() async {

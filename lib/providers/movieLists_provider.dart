@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:MoviePKR/models/Movie.dart';
 import 'package:MoviePKR/models/movieList.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,10 +10,12 @@ class MovieLists with ChangeNotifier {
 
   List<MovieList> _myLists = [];
   List<Movie> _trendingMovies = [];
+  Map<int, String> genres = {};
 
   List<MovieList> get movieLists => [..._myLists];
   List<Movie> get trendingList => [..._trendingMovies];
-  //List<Movie> get searchedList => [..._searchedMovies];
+
+  //get genres => null;
 
   void addNewList(MovieList newList) {
     _myLists.add(newList);
@@ -44,6 +44,38 @@ class MovieLists with ChangeNotifier {
 
   MovieList getListAtIndex(int index) {
     return _myLists[index];
+  }
+
+  String getGenre(int i) {
+    String genre;
+    genres.forEach((key, value) {
+      if (key == i) genre = value;
+    });
+    return genre;
+  }
+
+  String getGenreList(Movie movie) {
+    String genreList = "";
+    int count = 0;
+    for(var genre in movie.genres) {
+      if(count < 3) {
+        genreList += getGenre(genre) + " | ";
+        count ++;
+      }
+    }
+    if(genreList.length > 3) genreList = genreList.substring(0, genreList.length - 3);
+    return genreList;
+  }
+
+  Future<void> fetchGenres() async {
+    final response = await http.get(
+      "https://api.themoviedb.org/3/genre/movie/list?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language=en-US");
+    var data = json.decode(response.body)['genres'];
+    print(data);
+    for (var item in data) {
+      genres[item['id']] = item['name'];
+    }
+    print(genres.keys);
   }
 
   static Future<List<Movie>> fetchMovies(String keyword) async {

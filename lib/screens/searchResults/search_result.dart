@@ -67,43 +67,44 @@ class _SearchResultState extends State<SearchResult> {
             child: Card(
               color: Colors.transparent,
               elevation: 0.8,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
-                child: Container(
-                    height: 144,
-                    width: double.infinity,
-                    color: Colors.transparent,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        _imageWidget(index),
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                movieList[index].title,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
-                              ),
-                              SizedBox(height: 6),
-                              SmoothStarRating(
-                                size: 15,
-                                filledIconData: Icons.star,
-                                isReadOnly: true,
-                                color: Colors.orange,
-                                borderColor: Colors.orange,
-                                halfFilledIconData: Icons.star_half,
-                                defaultIconData: Icons.star_border,
-                                starCount: 5,
-                                allowHalfRating: true,
-                                spacing: 2.0,
-                                rating: Movie.getRating(
-                                    movieList[index].rating.toDouble()),
-                              ),
-                              SizedBox(height: 6),
+              child: Container(
+                  height: 144,
+                  width: double.infinity,
+                  color: Colors.transparent,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      _imageWidget(index),
+                      Expanded(
+                          child: Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              movieList[index].title,
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 16),
+                            ),
+                            SizedBox(height: 6),
+                            SmoothStarRating(
+                              size: 15,
+                              filledIconData: Icons.star,
+                              isReadOnly: true,
+                              color: Colors.orange,
+                              borderColor: Colors.orange,
+                              halfFilledIconData: Icons.star_half,
+                              defaultIconData: Icons.star_border,
+                              starCount: 5,
+                              allowHalfRating: true,
+                              spacing: 2.0,
+                              rating: Movie.getRating(
+                                  movieList[index].rating.toDouble()),
+                            ),
+                            SizedBox(height: 6),
+                            Row(children: <Widget> [
+                              Text("Release date: ", style: TextStyle(
+                                  color: Colors.white, fontSize: 12)),
                               Text(
                                 movieList[index].releaseDate != null
                                     ? movieList[index].releaseDate
@@ -111,18 +112,18 @@ class _SearchResultState extends State<SearchResult> {
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 12),
                               ),
-                              SizedBox(height: 6),
-                              Text(
-                                _getGenreList(movieList[index]),
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 12),
-                              ),
-                            ],
-                          ),
-                        )),
-                      ],
-                    )),
-              ),
+                            ]),
+                            SizedBox(height: 6),
+                            Text(
+                              _getGenreList(movieList[index]),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 12),
+                            ),
+                          ],
+                        ),
+                      )),
+                    ],
+                  )),
             ),
           );
         },
@@ -143,14 +144,13 @@ class _SearchResultState extends State<SearchResult> {
     return genreList;
   }
 
-  // Den här koden använder avengers: endgame som bild om det blir bild-error...
   Widget _imageWidget(int index) {
     try {
       return Container(
+        padding: EdgeInsets.fromLTRB(6, 6, 0, 6),
         alignment: Alignment.centerLeft,
-        width: 90,
         height: double.infinity,
-        child: Image(image: NetworkImage(// Något går snett här ibland!
+        child: Image(image: NetworkImage(
             ApiData.postersUrl + movieList[index].posterPath)),
       );
     } catch (exception) {

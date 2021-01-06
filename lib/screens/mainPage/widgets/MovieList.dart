@@ -21,7 +21,8 @@ SliverGrid movieList(BuildContext context) {
         childAspectRatio: (itemWidth / itemHeight),
       ),
       delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-        return InkWell(
+        return Container(
+            child: InkWell(
           onTap: () {
             Navigator.push(
                 context,
@@ -29,44 +30,46 @@ SliverGrid movieList(BuildContext context) {
                     builder: (BuildContext context) =>
                         new DescriptionScreen(id: trendingList[index].id)));
           },
-          child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            elevation: 1,
-            color: Colors.transparent,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-                  child: Image(
-                      image: NetworkImage(
-                          ApiData.postersUrl + trendingList[index].posterPath)),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(trendingList[index].title,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w800)),
-                    ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  elevation: 10,
+                  color: Colors.transparent,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15.0),
+                    child: Image(
+                        image: NetworkImage(ApiData.postersUrl +
+                            trendingList[index].posterPath)),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child:
-                      starRating(Movie.getRating(trendingList[index].rating)),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 5, right: 5),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(trendingList[index].title,
+                        maxLines: 2,
+                        overflow: TextOverflow.fade,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800)),
+                  ),
                 ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(),
+                child: starRating(Movie.getRating(trendingList[index].rating)),
+              ),
+            ],
           ),
-        );
+        ));
       }, childCount: trendingList.length));
 }

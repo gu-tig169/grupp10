@@ -1,4 +1,5 @@
 import 'package:MoviePKR/screens/savedLists/savedLists_screen.dart';
+import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class PopUpMenu extends StatelessWidget {
@@ -9,13 +10,23 @@ class PopUpMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<int>(
-      icon: Icon(Icons.more_vert_rounded, color: Colors.white),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      color: AppColors.primaryColor.withOpacity(0.9),
+      icon: Icon(Icons.person, color: Colors.white),
       itemBuilder: (context) => [
         PopupMenuItem(
-          value: 1,
-          child: Text('My lists'),
-        ),
-        PopupMenuItem(value: 2, child: Text('About'))
+            textStyle: TextStyle(color: Colors.white, fontSize: 16),
+            value: 1,
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'My Lists',
+              ),
+            )),
+        // PopupMenuItem(
+        //     textStyle: TextStyle(color: Colors.white, fontSize: 14),
+        //     value: 2,
+        //     child: Text('About'))
       ],
       onSelected: (value) => {
         if (value == 1)

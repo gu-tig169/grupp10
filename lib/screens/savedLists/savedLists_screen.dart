@@ -58,71 +58,82 @@ class _SavedListState extends State<SavedList> {
       padding: EdgeInsets.all(10),
       //separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
-        return Card(
-          color: Colors.transparent,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-            child: Container(
-                height: 80,
-                width: double.infinity,
-                color: Colors.transparent,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 110,
-                      height: double.infinity,
-                      child: FlatButton(
-                        // Moved flatbutton here.
-                        onPressed: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MovieListScreen(
-                                      snapshot.movieLists[index].listTitle,
-                                      snapshot.movieLists[index].movies)))
-                        },
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => MovieListScreen(
+                        snapshot.movieLists[index].listTitle,
+                        snapshot.movieLists[index].movies)));
+          },
+          child: Card(
+            color: Colors.transparent,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+              child: Container(
+                  height: 80,
+                  width: double.infinity,
+                  color: Colors.transparent,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      SizedBox(
+                        width: 110,
+                        height: double.infinity,
                         child: Container(
                           //William set imgae to en list
                           child: setImageToMymovielist(
                               snapshot.movieLists[index].movies),
                         ),
                       ),
-                    ),
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 15, 5, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              snapshot.movieLists[index].listTitle,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
+                      Expanded(
+                          child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 15, 5, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Flexible(
+                              child: Text(
+                                snapshot.movieLists[index].listTitle,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
                             ),
-                          ),
-                          Text(
-                            snapshot.movieLists[index].count.toString(),
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    )),
-                    Container(
-                      child: IconButton(
-                          icon: Icon(Icons.close),
-                          color: Colors.white,
-                          splashColor: Colors.transparent,
-                          onPressed: () =>
-                              setState(() => snapshot.removeList(list[index]))),
-                    )
-                  ],
-                )),
+                            Text(
+                              movieCount(snapshot.movieLists[index]
+                                  .count), //william update for show movies count
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      )),
+                      Container(
+                        child: IconButton(
+                            icon: Icon(Icons.close),
+                            color: Colors.white,
+                            splashColor: Colors.transparent,
+                            onPressed: () => setState(
+                                () => snapshot.removeList(list[index]))),
+                      )
+                    ],
+                  )),
+            ),
           ),
         );
       },
     );
+  }
+
+//William handle about to show how many movies in a mylist
+  String movieCount(int count) {
+    if (count == 0) {
+      return '0 movie';
+    } else if (count == 1) {
+      return '1 movie';
+    } else {
+      return count.toString() + ' movies';
+    }
   }
 
 // William handle about if there is no movies in a mymovielist, thus there should be en image in lokal.

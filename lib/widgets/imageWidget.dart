@@ -1,5 +1,3 @@
-import 'package:MoviePKR/screens/mainPage/widgets/SearchBar.dart';
-import 'package:MoviePKR/screens/movieDescription/movieDescription_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/rendering.dart';

@@ -62,7 +62,7 @@ SliverGrid movieList(BuildContext context) {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 5),
                   child:
-                      starRating(Movie.getRating(trendingList[index].rating)),
+                      starRating(Movie.getRating(trendingList[index].rating), 20),
                 ),
               ],
             ),

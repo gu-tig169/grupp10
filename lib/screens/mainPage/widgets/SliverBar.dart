@@ -1,5 +1,5 @@
 import 'package:MoviePKR/screens/mainPage/widgets/PopUpMenuButton.dart';
-import 'package:MoviePKR/screens/mainPage/widgets/SearchBar.dart';
+import 'package:MoviePKR/widgets/SearchBar.dart';
 import 'package:flutter/material.dart';
 
 class SliverBar extends StatelessWidget {

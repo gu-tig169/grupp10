@@ -5,10 +5,10 @@ import 'package:MoviePKR/screens/singleList/singleList_screen.dart';
 import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
 class SavedList extends StatefulWidget {
-
   @override
   _SavedListState createState() => _SavedListState();
 }
@@ -60,66 +60,79 @@ class _SavedListState extends State<SavedList> {
       //separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         return Card(
-          color: Colors.transparent,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-            child: Container(
-                height: 80,
-                width: double.infinity,
-                color: Colors.transparent,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 110,
-                      height: double.infinity,
-                      child: FlatButton(
-                        // Moved flatbutton here.
-                        onPressed: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => new MovieListScreen()))
-                        },
-                        child: Container(
-                          //William set imgae to en list
-                          child: setImageToMymovielist(
-                              snapshot.movieLists[index].movies),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 15, 5, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              snapshot.movieLists[index].listTitle,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
+            color: Colors.transparent,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+              child: Slidable(
+                actionPane: SlidableDrawerActionPane(),
+                actionExtentRatio: 0.25,
+                child: Container(
+                    height: 80,
+                    width: double.infinity,
+                    color: Colors.transparent,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        SizedBox(
+                          width: 110,
+                          height: double.infinity,
+                          child: FlatButton(
+                            // Moved flatbutton here.
+                            onPressed: () => {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => new MovieListScreen()))
+                            },
+                            child: Container(
+                              //William set imgae to en list
+                              child: setImageToMymovielist(
+                                  snapshot.movieLists[index].movies),
                             ),
                           ),
-                          Text(
-                            snapshot.movieLists[index].count.toString(),
-                            style: TextStyle(color: Colors.white),
+                        ),
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 5, 5, 0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              ListTile(
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.white70,
+                                ),
+                                title: Text(
+                                  snapshot.movieLists[index].listTitle,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                                subtitle: Text(
+                                  snapshot.movieLists[index].count.toString() +
+                                      ' movies',
+                                  style: TextStyle(color: Colors.white),
+                                  textAlign: TextAlign.left,
+                                ),
+                              )
+                            ],
                           ),
-                        ],
-                      ),
+                        ))
+                      ],
                     )),
-                    Container(
-                      child: IconButton(
-                          icon: Icon(Icons.close),
-                          color: Colors.white,
-                          splashColor: Colors.transparent,
-                          onPressed: () =>
-                              setState(() => snapshot.removeList(list[index]))),
-                    )
-                  ],
-                )),
-          ),
-        );
+                secondaryActions: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: IconSlideAction(
+                        caption: 'Delete',
+                        color: AppColors.thirdColor,
+                        icon: Icons.delete,
+                        onTap: () =>
+                            setState(() => snapshot.removeList(list[index]))),
+                  ),
+                ],
+              ),
+            ));
       },
     );
   }

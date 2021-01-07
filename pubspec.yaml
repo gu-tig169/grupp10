@@ -30,6 +30,7 @@ dependencies:
   rating_dialog: ^1.0.0
   http: 
   shared_preferences:
+  flutter_slidable: ^0.5.7
 
 
 

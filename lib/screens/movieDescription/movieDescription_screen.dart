@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:MoviePKR/util/constants.dart';
 import 'package:MoviePKR/widgets/smoothStarRating.dart';
 import 'package:flutter/material.dart';
@@ -222,125 +224,177 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
   }
 
   Widget setupAlertDialoadContainer() {
+    final ScrollController _controllerOne = ScrollController();
     var list = Provider.of<MovieLists>(context, listen: false).movieLists;
     return Center(
       //AlertDialog needs to be wrapped in a Stateful widget so when a user changes the value in the dropdown, changes shall be visible to user.
       child: StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
-        return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          backgroundColor: Color.fromARGB(225, 18, 18, 30).withOpacity(0.95),
-          title: Text(
-            'Add to list',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white),
-          ),
-          content: Builder(
-            builder: (context) {
-              var height = MediaQuery.of(context).size.height;
-              var width = MediaQuery.of(context).size.width;
+        return BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              backgroundColor:
+                  Color.fromARGB(225, 18, 18, 30).withOpacity(0.95),
+              title: Text(
+                'Add to list',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white),
+              ),
+              content: Builder(
+                builder: (context) {
+                  var height = MediaQuery.of(context).size.height;
+                  var width = MediaQuery.of(context).size.width;
 
-              return Container(
-                height: height - 0,
-                width: width - 0,
-                color: Colors.transparent,
-                child: ListView.builder(
-                    itemCount: list.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          bool result =
-                              Provider.of<MovieLists>(context, listen: false)
-                                  .addFilmToList(movie, index);
-                          result
-                              ? showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    Future.delayed(Duration(seconds: 1), () {
-                                      Navigator.of(context, rootNavigator: true)
-                                          .pop(true);
-                                    });
-                                    return AlertDialog(
-                                      title:
-                                          Text('Movie was added successfully'),
-                                    );
-                                  })
-                              : showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title:
-                                          Text('Movie has already been added'),
-                                      actions: [
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
+                  return Container(
+                      height: height - 100,
+                      width: width - 0,
+                      child: Scrollbar(
+                        radius: Radius.circular(20),
+                        thickness: width = 3,
+                        controller: _controllerOne,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 5, left: 5),
+                          child: ListView.builder(
+                              controller: _controllerOne,
+                              itemCount: list.length,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  splashColor: AppColors.thirdColor,
+                                  onTap: () {
+                                    bool result = Provider.of<MovieLists>(
+                                            context,
+                                            listen: false)
+                                        .addFilmToList(movie, index);
+                                    result
+                                        ? showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              Future.delayed(
+                                                  Duration(seconds: 1), () {
+                                                Navigator.of(context,
+                                                        rootNavigator: true)
+                                                    .pop(true);
+                                              });
+                                              return AlertDialog(
+                                                backgroundColor: Colors.black
+                                                    .withOpacity(0.9),
+                                                title: Text(
+                                                    'Movie was added successfully',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16)),
+                                              );
+                                            })
+                                        : showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                elevation: 10,
+                                                backgroundColor: Color.fromARGB(
+                                                        225, 18, 18, 30)
+                                                    .withOpacity(0.95),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(30),
+                                                ),
+                                                title: Text(
+                                                    'Movie has already been added',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16)),
+                                                actions: [
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: Text('OK',
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .white)))
+                                                ],
+                                              );
                                             },
-                                            child: Text('OK'))
-                                      ],
-                                    );
+                                          );
+                                    //   Navigator.of(context, rootNavigator: true).pop();
                                   },
+                                  child: Card(
+                                    color: Colors.transparent,
+                                    elevation: 0,
+                                    child: Container(
+                                        padding: EdgeInsets.all(8.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topRight,
+                                            end: Alignment.bottomLeft,
+                                            colors: [
+                                              AppColors.primaryColor
+                                                  .withOpacity(0.5),
+                                              AppColors.secondaryColor
+                                                  .withOpacity(0.4)
+                                            ],
+                                          ),
+                                        ),
+                                        height: 50,
+                                        width: double.infinity,
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: <Widget>[
+                                            Expanded(
+                                                child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 20, top: 5),
+                                                  child: Text(
+                                                    list[index].listTitle,
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                )
+                                              ],
+                                            ))
+                                          ],
+                                        )),
+                                  ),
                                 );
-                          //   Navigator.of(context, rootNavigator: true).pop();
-                        },
-                        child: Card(
-                          color: Colors.transparent,
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Container(
-                                height: 40,
-                                width: double.infinity,
-                                color: Colors.transparent,
-                                child: Row(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: <Widget>[
-                                    Expanded(
-                                        child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Flexible(
-                                            child: Text(
-                                          list[index].listTitle,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16),
-                                          textAlign: TextAlign.center,
-                                        ))
-                                      ],
-                                    ))
-                                  ],
-                                )),
-                          ),
+                              }),
                         ),
-                      );
-                    }),
-              );
-            },
-          ),
-          actions: <Widget>[
-            Column(
-              children: [
-                Container(height: 5),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.only(right: 15),
-                  height: 30,
-                  width: 90,
-                  child: FloatingActionButton.extended(
-                      backgroundColor: AppColors.thirdColor,
-                      label: Text('CANCEL', style: TextStyle(fontSize: 12)),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      }),
-                ),
-                Container(height: 20),
+                      ));
+                },
+              ),
+              actionsPadding: EdgeInsets.only(right: 100),
+              actions: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(right: 10),
+                      height: 40,
+                      width: 90,
+                      child: FloatingActionButton.extended(
+                          backgroundColor: AppColors.thirdColor,
+                          label: Text('CANCEL', style: TextStyle(fontSize: 12)),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          }),
+                    ),
+                    Container(height: 15),
+                  ],
+                )
               ],
-            )
-          ],
-        );
+            ));
       }),
     );
   }

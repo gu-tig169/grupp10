@@ -21,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
           begin: Alignment.topCenter,
           end: Alignment.bottomRight,
           colors: [
-            AppColors.secondaryColor.withOpacity(0.83),
+            AppColors.secondaryColor.withOpacity(0.87),
             AppColors.primaryColor
           ],
         ),

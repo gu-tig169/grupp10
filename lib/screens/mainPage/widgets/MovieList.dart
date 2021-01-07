@@ -16,8 +16,8 @@ SliverGrid movieList(BuildContext context) {
       // gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisSpacing: 10.0,
-        crossAxisSpacing: 10.0,
+        mainAxisSpacing: 15.0,
+        crossAxisSpacing: 5.0,
         childAspectRatio: (itemWidth / itemHeight),
       ),
       delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
@@ -34,7 +34,7 @@ SliverGrid movieList(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
+                padding: const EdgeInsets.only(left: 13, right: 13),
                 child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
@@ -50,7 +50,10 @@ SliverGrid movieList(BuildContext context) {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 5, right: 5),
+                  padding: const EdgeInsets.only(
+                    left: 1,
+                    right: 1,
+                  ),
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(trendingList[index].title,
@@ -64,8 +67,7 @@ SliverGrid movieList(BuildContext context) {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(),
+              Container(
                 child: starRating(Movie.getRating(trendingList[index].rating)),
               ),
             ],

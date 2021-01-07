@@ -19,7 +19,7 @@ class SliverBar extends StatelessWidget {
       // backgroundColor: Colors.transparent,
 
       title: Text(
-        'The Movies App',
+        'The Movie App',
         style: TextStyle(fontSize: 26),
       ),
       centerTitle: true,
@@ -39,10 +39,10 @@ class SliverBar extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 16.0),
                         child: Align(
-                          alignment: Alignment.centerLeft,
+                          alignment: Alignment.center,
                           child: Text('Trending',
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.white70,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700)),
                         ),

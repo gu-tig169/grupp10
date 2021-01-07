@@ -18,9 +18,12 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [AppColors.primaryColor, AppColors.secondaryColor],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomRight,
+          colors: [
+            AppColors.secondaryColor.withOpacity(0.87),
+            AppColors.primaryColor
+          ],
         ),
       ),
       child: Scaffold(

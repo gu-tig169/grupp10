@@ -15,8 +15,6 @@ class MovieLists with ChangeNotifier {
   List<MovieList> get movieLists => [..._myLists];
   List<Movie> get trendingList => [..._trendingMovies];
 
-  //get genres => null;
-
   void addNewList(MovieList newList) {
     _myLists.add(newList);
     saveToSF();

@@ -4,7 +4,7 @@ import 'package:MoviePKR/util/constants.dart';
 import 'package:MoviePKR/widgets/smoothStarRating.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rating_dialog/rating_dialog.dart';
+//import 'package:rating_dialog/rating_dialog.dart';
 import 'package:MoviePKR/providers/movieLists_provider.dart';
 import 'package:MoviePKR/models/Movie.dart';
 
@@ -49,108 +49,127 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                         style: TextStyle(
                             fontWeight: FontWeight.w300, fontSize: 24)),
                   ),
-                  body: _movieWidget(context, String)),
-            );
+                  body: Container(
+                  decoration: BoxDecoration(color: Colors.transparent),
+                      child: Padding(
+                        padding: const EdgeInsets.all(18),
+                        child: _detailedMovieDescription(),
+                      )
+                  ),
+            ));
           } else {
             return Center(child: CircularProgressIndicator());
           }
         });
   }
 
-  Widget _movieWidget(context, title) {
-    return Container(
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(18),
-          child: Center(
-            child: Column(children: <Widget>[
-              _movieImage(),
-              Container(height: 16),
-              _movieDetails(),
-            ]),
-          ),
-        ));
-  }
-
-  Widget _movieImage() {
-    return Container(
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: Colors.black.withOpacity(0.3),
-            spreadRadius: 3,
-            blurRadius: 3,
-            offset: Offset(5, 7))
-      ]),
-      height: 300,
-      child: Image(
-          image: movie.posterPath != null
-              ? NetworkImage(ApiData.postersUrl + movie.posterPath)
-              : AssetImage('assets/images/image_NA.png')),
-    );
-  }
-
-  Widget _movieDetails() {
-    return Expanded(
-      child: Container(
-          padding: EdgeInsets.all(12),
-          color: Color.fromARGB(225, 18, 18, 30).withOpacity(0.3),
+  Widget _detailedMovieDescription() {
+    return Center(
+      child: Column(children: <Widget>[
+        Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.3),
+                spreadRadius: 3,
+                blurRadius: 3,
+                offset: Offset(5, 7))
+          ]),
           height: 300,
-          //width: 350,
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(movie.title,
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17)),
-                Container(height: 5),
-                starRating(Movie.getRating(movie.rating)),
-                Container(height: 5),
-                Row(
+          child: Image(
+              image: movie.posterPath != null
+                  ? NetworkImage(ApiData.postersUrl + movie.posterPath)
+                  : AssetImage('assets/images/image_NA.png')),
+        ),
+        Container(height: 16),
+        Expanded(
+          child: Container(
+              padding: EdgeInsets.all(12),
+              color: Color.fromARGB(225, 18, 18, 30).withOpacity(0.3),
+              height: 300,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
-                      Icons.update_outlined,
-                      color: Colors.white.withOpacity(0.5),
-                      size: 20,
-                    ),
-                    Container(width: 5),
-                    Text(movie.runTime.toString() + " min",
+                    Text(movie.title,
+                        textAlign: TextAlign.left,
                         style: TextStyle(
-                            color: Colors.white.withOpacity(0.5),
-                            fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                Container(height: 10),
-                Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Text(
-                      movie.description,
-                      style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.justify,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17)),
+                    Container(height: 5),
+                    starRating(Movie.getRating(movie.rating), 20),
+                    Container(height: 5),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.update_outlined,
+                          color: Colors.white.withOpacity(0.5),
+                          size: 20,
+                        ),
+                        Container(width: 5),
+                        Text(movie.runTime.toString() + " min",
+                            style: TextStyle(
+                                color: Colors.white.withOpacity(0.5),
+                                fontWeight: FontWeight.bold)),
+                      ],
                     ),
-                  ),
-                ),
-                _buttons(),
-              ])),
+                    Container(height: 10),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Text(
+                          movie.description,
+                          style: TextStyle(color: Colors.white),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ),
+                    ),
+                    _addToListBtn(),
+                  ])),
+        ),
+      ]),
     );
   }
 
+  Widget _addToListBtn() {
+    return Padding(
+      padding: EdgeInsets.all(5),
+      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+        Container(
+            child: FloatingActionButton.extended(
+                heroTag: "btn1",
+                label: Text(
+                  'ADD TO LIST',
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                ),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                splashColor: AppColors.thirdColor,
+                focusColor: AppColors.thirdColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(color: AppColors.thirdColor, width: 3)),
+                onPressed: () {
+                  setState(() {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return setupAlertDialoadContainer();
+                        });
+                  });
+                })),
+      ]),
+    );
+  }
+
+  /*
   Widget _buttons() {
     return Padding(
       padding: EdgeInsets.all(5),
       child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
         Container(
-            // height: 40,
-            // width: 100,
             child: FloatingActionButton.extended(
-                heroTag:
-                    "btn1", // Herotag måste finnas (för att vyn ska fungera på min dator).
+                heroTag: "btn1",
                 label: Text(
                   'ADD TO LIST',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
@@ -176,8 +195,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
             height: 40,
             width: 100,
             child: FloatingActionButton.extended(
-                heroTag:
-                    "btn2", // Herotag måste finnas (för att vyn ska fungera på min dator).
+                heroTag: "btn2",
                 label: Text(
                   'RATE',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
@@ -196,7 +214,9 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     );
   }
 
-//Funktion som låter användaren ratea filmen, datan kan skickas till api och sedan visas i widgeten _starRating
+   */
+
+/*
   void show() {
     showDialog(
         barrierColor: Colors.black38,
@@ -222,6 +242,8 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
               ));
         });
   }
+
+ */
 
   Widget setupAlertDialoadContainer() {
     final ScrollController _controllerOne = ScrollController();
@@ -411,4 +433,3 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     );
   }
 }
-//TODO: Add function to add to list button (pop up to show saved lists??)

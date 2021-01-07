@@ -1,4 +1,4 @@
-import 'package:MoviePKR/screens/mainPage/widgets/SearchBar.dart';
+import 'package:MoviePKR/widgets/SearchBar.dart';
 import 'package:flutter/material.dart';
 import 'package:MoviePKR/util/constants.dart';
 import 'package:MoviePKR/widgets/detailedMovieList.dart';

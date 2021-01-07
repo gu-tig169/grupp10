@@ -77,7 +77,6 @@ class MovieLists with ChangeNotifier {
     final response = await http.get(
         "https://api.themoviedb.org/3/genre/movie/list?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language=en-US");
     var data = json.decode(response.body)['genres'];
-    print(data);
     for (var item in data) {
       genres[item['id']] = item['name'];
     }

@@ -260,6 +260,8 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                                     Future.delayed(Duration(seconds: 1), () {
                                       Navigator.of(context, rootNavigator: true)
                                           .pop(true);
+                                      Navigator.of(context, rootNavigator: true)
+                                          .pop(true);
                                     });
                                     return AlertDialog(
                                       title:

@@ -48,7 +48,7 @@ SliverGrid movieList(BuildContext context) {
                 Align(
                   alignment: Alignment.center,
                   child: Text(trendingList[index].title,
-                      maxLines: 2,
+                      // maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: TextStyle(

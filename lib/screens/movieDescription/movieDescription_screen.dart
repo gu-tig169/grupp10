@@ -105,7 +105,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                           size: 20,
                         ),
                         Container(width: 5),
-                        Text(movie.runTime.toString() + " min",
+                        Text(Movie.checkRunTime(movie.runTime),
                             style: TextStyle(
                                 color: Colors.white.withOpacity(0.5),
                                 fontWeight: FontWeight.bold)),
@@ -116,7 +116,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                       child: SingleChildScrollView(
                         scrollDirection: Axis.vertical,
                         child: Text(
-                          movie.description,
+                          Movie.checkDescription(movie.description),
                           style: TextStyle(color: Colors.white),
                           textAlign: TextAlign.justify,
                         ),

@@ -31,38 +31,32 @@ SliverGrid movieList(BuildContext context) {
           child: Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            elevation: 1,
+            elevation: 0,
             color: Colors.transparent,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-                  child: Image(
-                      image: NetworkImage(
-                          ApiData.postersUrl + trendingList[index].posterPath)),
-                ),
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(trendingList[index].title,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w800)),
-                    ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(15), bottom: Radius.circular(15)),
+                    child: Image(
+                        image: NetworkImage(ApiData.postersUrl +
+                            trendingList[index].posterPath)),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child:
-                      starRating(Movie.getRating(trendingList[index].rating), 20),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(trendingList[index].title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800)),
                 ),
+                starRating(Movie.getRating(trendingList[index].rating), 20),
               ],
             ),
           ),

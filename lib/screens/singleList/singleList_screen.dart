@@ -1,5 +1,4 @@
 import 'package:MoviePKR/util/constants.dart';
-import 'package:MoviePKR/widgets/movieList_listview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:MoviePKR/models/Movie.dart';

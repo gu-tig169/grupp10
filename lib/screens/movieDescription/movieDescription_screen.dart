@@ -1,10 +1,8 @@
 import 'dart:ui';
-
 import 'package:MoviePKR/util/constants.dart';
 import 'package:MoviePKR/widgets/smoothStarRating.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-//import 'package:rating_dialog/rating_dialog.dart';
 import 'package:MoviePKR/providers/movieLists_provider.dart';
 import 'package:MoviePKR/models/Movie.dart';
 
@@ -162,94 +160,10 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     );
   }
 
-  /*
-  Widget _buttons() {
-    return Padding(
-      padding: EdgeInsets.all(5),
-      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-        Container(
-            child: FloatingActionButton.extended(
-                heroTag: "btn1",
-                label: Text(
-                  'ADD TO LIST',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                ),
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                splashColor: AppColors.thirdColor,
-                focusColor: AppColors.thirdColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(color: AppColors.thirdColor, width: 3)),
-                onPressed: () {
-                  setState(() {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return setupAlertDialoadContainer();
-                        });
-                  });
-                })),
-        Container(width: 10),
-        Container(
-            height: 40,
-            width: 100,
-            child: FloatingActionButton.extended(
-                heroTag: "btn2",
-                label: Text(
-                  'RATE',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                ),
-                backgroundColor: AppColors.thirdColor,
-                splashColor: AppColors.thirdColor,
-                focusColor: AppColors.thirdColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(color: AppColors.thirdColor, width: 3)),
-                onPressed: () {
-                  show();
-                })),
-        Container(width: 10)
-      ]),
-    );
-  }
-
-   */
-
-/*
-  void show() {
-    showDialog(
-        barrierColor: Colors.black38,
-        context: context,
-        barrierDismissible: true,
-        builder: (context) {
-          return Theme(
-              data: Theme.of(context).copyWith(
-                  textTheme: TextTheme(
-                      headline6: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w300)),
-                  dialogBackgroundColor:
-                      Color.fromARGB(225, 18, 18, 30).withOpacity(0.8)),
-              child: RatingDialog(
-                icon: Image.asset('assets/images/icon.png', height: 40),
-                title: 'Movie review',
-                description: 'What did you think about this movie? Tell us!',
-                submitButton: 'Sumbit',
-                accentColor: AppColors.primaryColor,
-                onSubmitPressed: (int rating) {
-                  print("onSubmitPressed: rating = $rating");
-                },
-              ));
-        });
-  }
-
- */
-
   Widget setupAlertDialoadContainer() {
     final ScrollController _controllerOne = ScrollController();
     var list = Provider.of<MovieLists>(context, listen: false).movieLists;
     return Center(
-      //AlertDialog needs to be wrapped in a Stateful widget so when a user changes the value in the dropdown, changes shall be visible to user.
       child: StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
         return BackdropFilter(
@@ -342,7 +256,6 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                                             );
                                           },
                                         );
-                                  //   Navigator.of(context, rootNavigator: true).pop();
                                 },
                                 child: Card(
                                   color: Colors.transparent,

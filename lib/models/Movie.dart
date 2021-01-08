@@ -1,14 +1,11 @@
 import 'dart:convert';
 import 'dart:math';
 
-///A model for movie instances.
-
 class Movie {
   int id;
   String title;
   dynamic rating;
   List<dynamic> genres;
-  // String language;
   String releaseDate;
   int runTime;
   String description;
@@ -24,7 +21,6 @@ class Movie {
       this.posterPath,
       this.runTime});
 
-  //OPTIONAL
   String imdbId;
 
   factory Movie.fromJson(Map<String, dynamic> json) {
@@ -39,13 +35,12 @@ class Movie {
         runTime: json['runtime']);
   }
 
-  //William for genres
   factory Movie.fromJsonGenres(Map<String, dynamic> json) {
     return Movie(
         id: json['id'],
         title: json['original_title'],
         rating: json['vote_average'],
-        genres: json['genres'], //William for genresList
+        genres: json['genres'],
         releaseDate: json['release_date'],
         description: json['overview'],
         posterPath: json['poster_path'],
@@ -74,7 +69,6 @@ class Movie {
         'runtime': movie.runTime,
       };
 
-  // This method converts a 10 star rating to a 5 star rating rounded to one decimal.
   static double getRating(double value) {
     if (value == 0) value = 1;
     value = value / 2;
@@ -102,5 +96,3 @@ class Movie {
     }
   }
 }
-
-//Todo: do we need runTime?

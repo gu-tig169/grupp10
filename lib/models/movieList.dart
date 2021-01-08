@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'Movie.dart';
 
 class MovieList {
@@ -9,7 +8,6 @@ class MovieList {
   MovieList(String title) {
     listTitle = title;
     _movies = [];
-    //test
   }
 
   MovieList.fromStorage(String title, List<Movie> list) {
@@ -18,7 +16,7 @@ class MovieList {
   }
 
   int get count => _movies.length;
-  List<Movie> get movies => _movies; //William for get image from movies
+  List<Movie> get movies => _movies;
 
   factory MovieList.fromJson(Map<String, dynamic> json) {
     return MovieList.fromStorage(

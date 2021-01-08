@@ -23,10 +23,6 @@ class PopUpMenu extends StatelessWidget {
                 'My Lists',
               ),
             )),
-        // PopupMenuItem(
-        //     textStyle: TextStyle(color: Colors.white, fontSize: 14),
-        //     value: 2,
-        //     child: Text('About'))
       ],
       onSelected: (value) => {
         if (value == 1)

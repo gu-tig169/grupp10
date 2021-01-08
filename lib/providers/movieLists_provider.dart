@@ -58,7 +58,6 @@ class MovieLists with ChangeNotifier {
     for (var genre in movie.genres) {
       if (count < 3) {
         if (typeOfList == 'serachList') {
-          //William for diffrent list(serach list or movielist in mylist)
           genreList += getGenre(genre) + " | ";
         } else {
           genreList += getGenre(genre['id']) + " | ";
@@ -98,7 +97,6 @@ class MovieLists with ChangeNotifier {
     try {
       final response = await http.get(
           'https://api.themoviedb.org/3/trending/movie/day?api_key=837ac1cc736282b8a8c9d58d52cd5a7c');
-
       var data = json.decode(response.body)['results'];
       for (var item in data) {
         _trendingMovies.add(Movie.fromJson(item));
@@ -113,7 +111,7 @@ class MovieLists with ChangeNotifier {
         id.toString() +
         "?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language-en-US");
     return Movie.fromJsonGenres(
-        json.decode(response.body)); //update for get genres
+        json.decode(response.body));
   }
 
   Future<void> saveToSF() async {

@@ -13,7 +13,6 @@ SliverGrid movieList(BuildContext context) {
   final double itemWidth = size.width / 2;
 
   return SliverGrid(
-      // gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisSpacing: 10.0,

@@ -16,8 +16,6 @@ class SliverBar extends StatelessWidget {
       snap: true,
       elevation: 50,
       backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
-      // backgroundColor: Colors.transparent,
-
       title: Text(
         'The Movie App',
         style: TextStyle(fontSize: 26),

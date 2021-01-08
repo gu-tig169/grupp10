@@ -46,7 +46,6 @@ class _SavedListState extends State<SavedList> {
         ));
   }
 
-  //William for add en lsit
   TextEditingController textEditingController = TextEditingController();
 
   ListView _myList() {
@@ -56,7 +55,6 @@ class _SavedListState extends State<SavedList> {
     return ListView.builder(
       itemCount: list.length,
       padding: EdgeInsets.all(10),
-      //separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
@@ -82,7 +80,6 @@ class _SavedListState extends State<SavedList> {
                         width: 110,
                         height: double.infinity,
                         child: Container(
-                          //William set imgae to en list
                           child: setImageToMymovielist(
                               snapshot.movieLists[index].movies),
                         ),
@@ -102,7 +99,7 @@ class _SavedListState extends State<SavedList> {
                             ),
                             Text(
                               movieCount(snapshot.movieLists[index]
-                                  .count), //william update for show movies count
+                                  .count),
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
@@ -125,7 +122,6 @@ class _SavedListState extends State<SavedList> {
     );
   }
 
-//William handle about to show how many movies in a mylist
   String movieCount(int count) {
     if (count == 0) {
       return '0 movie';
@@ -136,7 +132,6 @@ class _SavedListState extends State<SavedList> {
     }
   }
 
-// William handle about if there is no movies in a mymovielist, thus there should be en image in lokal.
   Widget setImageToMymovielist(List<Movie> movies) {
     if (movies.length > 0) {
       if (movies[0].posterPath == null) {
@@ -157,7 +152,6 @@ class _SavedListState extends State<SavedList> {
     }
   }
 
-  //This widget is for FloatingActionButton
   Widget _floatButton(BuildContext context) {
     return Container(
       width: 130,
@@ -174,7 +168,6 @@ class _SavedListState extends State<SavedList> {
     );
   }
 
-//The "create list" popup window where you can create new list by typing in a name of the list.
   void show() {
     showDialog(
         context: context,
@@ -238,11 +231,9 @@ class _SavedListState extends State<SavedList> {
               if (textEditingController.text.trim().isNotEmpty) {
                 Provider.of<MovieLists>(context, listen: false)
                     .addNewList(new MovieList(textEditingController.text));
-
                 textEditingController.text = '';
-                //Don 't remove this.
                 Navigator.of(context, rootNavigator: true)
-                    .pop(); //Dismiss the dialog
+                    .pop();
 
               }
             });

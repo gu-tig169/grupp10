@@ -64,10 +64,9 @@ class _SearchResultState extends State<SearchResult> {
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500)))),
                     ),
-                    //detailedMovieList(movieList),
                     Expanded(
                         child: detailedMovieList(movieList,
-                            'serachList')), //William update for double using
+                            'serachList')),
                   ]);
                 } else {
                   return Center(child: CircularProgressIndicator());

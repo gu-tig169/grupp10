@@ -50,9 +50,7 @@ Widget detailedMovieList(List<Movie> movieList, String typeOfList) {
                               style:
                                   TextStyle(color: Colors.white, fontSize: 12)),
                           Text(
-                            movieList[index].releaseDate != null
-                                ? movieList[index].releaseDate
-                                : "N/A",
+                            Movie.checkReleaseDate(movieList[index].releaseDate),
                             style: TextStyle(color: Colors.white, fontSize: 12),
                           ),
                         ]),
@@ -60,7 +58,7 @@ Widget detailedMovieList(List<Movie> movieList, String typeOfList) {
                         Text(
                           Provider.of<MovieLists>(context, listen: false)
                               .getGenreList(movieList[index],
-                                  typeOfList), //for two diffrent list
+                                  typeOfList),
                           style: TextStyle(color: Colors.white, fontSize: 12),
                         ),
                       ],

@@ -50,6 +50,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                       decoration: BoxDecoration(color: Colors.transparent),
                       child: Padding(
                         padding: const EdgeInsets.all(18),
+
                         child: DetailedMovieDescription(movie),
                       )),
                 ));

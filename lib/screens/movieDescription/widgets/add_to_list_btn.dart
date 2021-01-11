@@ -39,7 +39,6 @@ class _AddToListBtnState extends State<AddToListBtn> {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          print('from add to list button ' + movie.title);
                           return SetupAlertDialoadContainer(movie: movie);
                         });
                   });

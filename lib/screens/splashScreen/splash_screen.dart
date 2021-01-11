@@ -23,7 +23,7 @@ class _MainSplashScreenState extends State<MainSplashScreen> {
       await Provider.of<MovieLists>(context, listen: false)
           .fetchGenres()
           .timeout(Duration(minutes: 1));
-    } on SocketException catch (_) {
+    } catch (_) {
       // return Future.value(SavedList());
 
       return showDialog(
@@ -50,10 +50,6 @@ class _MainSplashScreenState extends State<MainSplashScreen> {
           );
         },
       );
-    } on TimeoutException catch (_) {
-      print('timedout');
-    } on Error catch (e) {
-      print('Error: $e');
     }
     try {
       await Provider.of<MovieLists>(context, listen: false)

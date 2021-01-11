@@ -29,14 +29,14 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
         builder: (context, AsyncSnapshot<void> snapshot) {
           if (snapshot.hasData) {
             return Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [AppColors.primaryColor, AppColors.secondaryColor],
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [AppColors.primaryColor, AppColors.secondaryColor],
+                  ),
                 ),
-              ),
-              child: Scaffold(
+                child: Scaffold(
                   backgroundColor: Colors.transparent,
                   resizeToAvoidBottomInset: false,
                   appBar: AppBar(
@@ -48,13 +48,12 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                             fontWeight: FontWeight.w300, fontSize: 24)),
                   ),
                   body: Container(
-                  decoration: BoxDecoration(color: Colors.transparent),
+                      decoration: BoxDecoration(color: Colors.transparent),
                       child: Padding(
                         padding: const EdgeInsets.all(18),
                         child: _detailedMovieDescription(),
-                      )
-                  ),
-            ));
+                      )),
+                ));
           } else {
             return Center(child: CircularProgressIndicator());
           }

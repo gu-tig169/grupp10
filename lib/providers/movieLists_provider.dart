@@ -110,8 +110,7 @@ class MovieLists with ChangeNotifier {
     final response = await http.get("https://api.themoviedb.org/3/movie/" +
         id.toString() +
         "?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language-en-US");
-    return Movie.fromJsonGenres(
-        json.decode(response.body));
+    return Movie.fromJsonGenres(json.decode(response.body));
   }
 
   Future<void> saveToSF() async {

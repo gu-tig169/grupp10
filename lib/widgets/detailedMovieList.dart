@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:MoviePKR/widgets/imageWidget.dart';
 
 Widget detailedMovieList(List<Movie> movieList, String typeOfList) {
-
   return ListView.builder(
     padding: EdgeInsets.all(10),
     itemCount: movieList.length,
@@ -43,22 +42,24 @@ Widget detailedMovieList(List<Movie> movieList, String typeOfList) {
                           style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
                         SizedBox(height: 6),
-                        starRating(Movie.getRating(movieList[index].rating.toDouble()), 15),
+                        starRating(
+                            Movie.getRating(movieList[index].rating.toDouble()),
+                            15),
                         SizedBox(height: 6),
                         Row(children: <Widget>[
                           Text("Release date: ",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 12)),
                           Text(
-                            Movie.checkReleaseDate(movieList[index].releaseDate),
+                            Movie.checkReleaseDate(
+                                movieList[index].releaseDate),
                             style: TextStyle(color: Colors.white, fontSize: 12),
                           ),
                         ]),
                         SizedBox(height: 6),
                         Text(
                           Provider.of<MovieLists>(context, listen: false)
-                              .getGenreList(movieList[index],
-                                  typeOfList),
+                              .getGenreList(movieList[index], typeOfList),
                           style: TextStyle(color: Colors.white, fontSize: 12),
                         ),
                       ],

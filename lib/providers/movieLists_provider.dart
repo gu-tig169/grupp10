@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:MoviePKR/models/Movie.dart';
 import 'package:MoviePKR/models/movieList.dart';
+import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,10 +41,6 @@ class MovieLists with ChangeNotifier {
     }
   }
 
-  MovieList getListAtIndex(int index) {
-    return _myLists[index];
-  }
-
   String getGenre(int i) {
     String genre;
     genres.forEach((key, value) {
@@ -72,17 +69,20 @@ class MovieLists with ChangeNotifier {
 
   Future<void> fetchGenres() async {
     final response = await http.get(
-        "https://api.themoviedb.org/3/genre/movie/list?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language=en-US");
+        "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
+            ApiData.apiKey +
+            "&language=en-US");
     var data = json.decode(response.body)['genres'];
     for (var item in data) {
       genres[item['id']] = item['name'];
     }
-    print(genres.keys);
   }
 
   static Future<List<Movie>> fetchMovies(String keyword) async {
     final response = await http.get(
-        'https://api.themoviedb.org/3/search/movie?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language=en-US&query=' +
+        'https://api.themoviedb.org/3/search/movie?api_key=' +
+            ApiData.apiKey +
+            '&language=en-US&query=' +
             keyword +
             '&page=1&include_adult=false');
     List<Movie> searchedMovies = [];
@@ -96,7 +96,8 @@ class MovieLists with ChangeNotifier {
   Future<void> fetchTrendingList() async {
     try {
       final response = await http.get(
-          'https://api.themoviedb.org/3/trending/movie/day?api_key=837ac1cc736282b8a8c9d58d52cd5a7c');
+          'https://api.themoviedb.org/3/trending/movie/day?api_key=' +
+              ApiData.apiKey);
       var data = json.decode(response.body)['results'];
       for (var item in data) {
         _trendingMovies.add(Movie.fromJson(item));
@@ -109,7 +110,9 @@ class MovieLists with ChangeNotifier {
   static Future<Movie> fetchMovieByID(int id) async {
     final response = await http.get("https://api.themoviedb.org/3/movie/" +
         id.toString() +
-        "?api_key=837ac1cc736282b8a8c9d58d52cd5a7c&language-en-US");
+        "?api_key=" +
+        ApiData.apiKey +
+        "&language-en-US");
     return Movie.fromJsonGenres(json.decode(response.body));
   }
 

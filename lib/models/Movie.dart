@@ -77,26 +77,38 @@ class Movie {
   }
 
   static String checkDescription(String title) {
-    if(title.isEmpty) return "No description available.";
-    else return title;
+    if (title.isEmpty || title == null)
+      return "No description available.";
+    else
+      return title;
   }
 
-  static String checkReleaseDate(String title) {
-    if(title.isEmpty) return "N/A";
-    else return title;
+  static String checkReleaseDate(String releaseData) {
+    if (releaseData.isEmpty || releaseData == null)
+      return "N/A";
+    else
+      return releaseData;
   }
 
   static String checkRunTime(int runTime) {
-    if(runTime == null || runTime == 0) return "Runtime N/A";
-    else return runTime.toString() + " min";
+    if (runTime == null || runTime == 0)
+      return "Runtime N/A";
+    else
+      return runTime.toString() + " min";
   }
 
+  ///
+  ///This Method converts a list of Movies to a single string to be saved in sharedPreferences.
+  ///
   static String encode(List<Movie> movies) => json.encode(
         movies
             .map<Map<String, dynamic>>((movie) => Movie.toMap(movie))
             .toList(),
       );
 
+  ///
+  ///This method creates a Movie object from an XML file (JSON)
+  ///
   static List<Movie> decode(String movies) {
     if (movies != null && movies.isNotEmpty) {
       try {

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'package:MoviePKR/providers/movieLists_provider.dart';
 import 'package:MoviePKR/screens/mainPage/main_page.dart';
-import 'package:MoviePKR/screens/savedLists/savedLists_screen.dart';
 import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

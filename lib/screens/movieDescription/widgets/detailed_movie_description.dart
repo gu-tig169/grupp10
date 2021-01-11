@@ -8,7 +8,7 @@ import 'package:MoviePKR/models/Movie.dart';
 import 'add_to_list_btn.dart';
 
 class DetailedMovieDescription extends StatefulWidget {
-  Movie _movie;
+  final Movie _movie;
   DetailedMovieDescription(this._movie);
 
   _DetailedMovieDescriptionState createState() =>

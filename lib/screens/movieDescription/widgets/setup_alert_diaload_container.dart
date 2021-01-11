@@ -9,8 +9,8 @@ import 'package:provider/provider.dart';
 
 class SetupAlertDialoadContainer extends StatefulWidget {
   final Movie movie;
-  final int id;
-  SetupAlertDialoadContainer({Key key, this.id, this.movie}) : super(key: key);
+  // final int id;
+  SetupAlertDialoadContainer({Key key, this.movie}) : super(key: key);
 
   @override
   _SetupAlertDialoadContainerState createState() =>

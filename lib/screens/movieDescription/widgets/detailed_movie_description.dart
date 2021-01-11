@@ -81,7 +81,9 @@ class _DetailedMovieDescriptionState extends State<DetailedMovieDescription> {
                         ),
                       ),
                     ),
-                    AddToListBtn(),
+                    AddToListBtn(
+                      movie: movie,
+                    ),
                   ])),
         ),
       ]),

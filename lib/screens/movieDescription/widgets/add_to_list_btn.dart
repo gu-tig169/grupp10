@@ -1,16 +1,20 @@
+import 'package:MoviePKR/models/Movie.dart';
 import 'package:MoviePKR/screens/movieDescription/widgets/setup_alert_diaload_container.dart';
 import 'package:MoviePKR/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class AddToListBtn extends StatefulWidget {
   final int id;
-  AddToListBtn({Key key, this.id}) : super(key: key);
+  final Movie movie;
+  AddToListBtn({Key key, this.movie, this.id}) : super(key: key);
 
   @override
-  _AddToListBtnState createState() => _AddToListBtnState();
+  _AddToListBtnState createState() => _AddToListBtnState(movie);
 }
 
 class _AddToListBtnState extends State<AddToListBtn> {
+  Movie movie;
+  _AddToListBtnState(this.movie);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,7 +39,8 @@ class _AddToListBtnState extends State<AddToListBtn> {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return SetupAlertDialoadContainer();
+                          print('from add to list button ' + movie.title);
+                          return SetupAlertDialoadContainer(movie: movie);
                         });
                   });
                 })),

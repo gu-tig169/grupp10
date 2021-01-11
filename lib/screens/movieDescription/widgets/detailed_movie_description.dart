@@ -8,12 +8,17 @@ import 'package:MoviePKR/models/Movie.dart';
 import 'add_to_list_btn.dart';
 
 class DetailedMovieDescription extends StatefulWidget {
+  Movie _movie;
+  DetailedMovieDescription(this._movie);
+
   _DetailedMovieDescriptionState createState() =>
-      _DetailedMovieDescriptionState();
+      _DetailedMovieDescriptionState(_movie);
 }
 
 class _DetailedMovieDescriptionState extends State<DetailedMovieDescription> {
-  Movie movie;
+  final Movie movie;
+  _DetailedMovieDescriptionState(this.movie);
+
   @override
   Widget build(BuildContext context) {
     return Center(

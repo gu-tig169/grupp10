@@ -8,21 +8,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SetupAlertDialoadContainer extends StatefulWidget {
+  final Movie movie;
   final int id;
-  SetupAlertDialoadContainer({Key key, this.id}) : super(key: key);
+  SetupAlertDialoadContainer({Key key, this.id, this.movie}) : super(key: key);
 
   @override
   _SetupAlertDialoadContainerState createState() =>
-      _SetupAlertDialoadContainerState();
+      _SetupAlertDialoadContainerState(movie);
 }
 
 class _SetupAlertDialoadContainerState
     extends State<SetupAlertDialoadContainer> {
+  Movie movie;
+  _SetupAlertDialoadContainerState(this.movie);
   @override
   Widget build(BuildContext context) {
     final ScrollController _controllerOne = ScrollController();
     var list = Provider.of<MovieLists>(context, listen: false).movieLists;
-    Movie movie;
 
     return Center(
       child: StatefulBuilder(
